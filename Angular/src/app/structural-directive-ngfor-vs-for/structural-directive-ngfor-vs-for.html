@@ -1,0 +1,167 @@
+<div class="row text-center">
+    <div class="col-12 m3">
+        <b>Example of *ngFor vs For</b>
+    </div>
+</div>
+<div class="row text-center">
+    <div class="col-4">
+        <h4>Using *ngFor</h4>
+        <select name="" id="" class="p-2">
+            <option [value]="emp.empNumber" *ngFor="let emp of employees">
+                {{ emp.empName }} - {{emp.empEmail}}
+            </option>
+        </select>
+        <hr>
+        <h4>Using for()</h4>
+        <select name="" id="" class="p-2">
+            <!-- track feature -> helps angulat what changed in a list so it only updates 
+            what necessary inteead of rebuilding the entier list 
+            - works simiilar to tack by. 
+            But tack by is optional when using ngFor 
+            track feature is  compulsory when using @for
+            -->
+            @for(emp of employees; track emp){
+            <option [value]="emp.empNumber">
+                {{ emp.empName }} - {{emp.empEmail}}
+            </option>
+            }
+
+        </select>
+    </div>
+    <div class="col-6">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Emp Number</th>
+                    <th>Emp Name</th>
+                    <th>Emp Email</th>
+                    <th>Emp Department</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4">
+                        <h4>using ngFor</h4>
+                    </td>
+                </tr>
+                <tr *ngFor="let emp of employees">
+                    <td>{{emp.empNumber}}</td>
+                    <td>{{emp.empName}}</td>
+                    <td>{{emp.empEmail}}</td>
+                    <td>{{emp.empDept}}</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <h4>using for()</h4>
+                    </td>
+                </tr>
+                @for(emp of employees; track emp){
+                <tr>
+                    <td>{{emp.empNumber}}</td>
+                    <td>{{emp.empName}}</td>
+                    <td>{{emp.empEmail}}</td>
+                    <td>{{emp.empDept}}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-2">
+        <h4>using ngFor</h4>
+        <ol>
+            <li *ngFor="let company of companyList">{{ company }}</li>
+        </ol>
+
+        <hr>
+
+        <h4>using for()</h4>
+        <ol>
+            @for(company of companyList; track company){
+            <li>{{ company }}</li>
+            }
+            @empty {
+                No companies found
+            }
+        </ol>
+    </div>
+</div>
+
+<hr>
+
+
+<div class="row text-center">
+    <div class="col-4">
+        <h4>using ngFor</h4>
+        <div *ngFor="let company of companyList">{{ company }}</div>
+
+        <hr>
+
+        <h4>using for()</h4>
+        @for(company of companyList; track company){
+        <div>{{ company }}</div>
+        }
+    </div>
+    <div class="col-8">
+        <h4>using ngFor</h4>
+        <button class="btn btn-primary m-1" *ngFor="let company of companyList">{{ company }}</button>
+
+        <hr>
+
+        <h4>using for()</h4>
+        @for(company of companyList; track company){
+        <button class="btn btn-primary m-1">{{ company }}</button>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-4">
+        <ol>
+            @for(company of companyList; track company; let f=$first, l=$last, e=$even, o=$odd, c=$count, i=$index){
+            @if(f == true){
+            <li style="color: red;">{{ company }}</li>
+            } @else if(l == true){
+            <li style="color: blue;">{{ company }}</li>
+            } @else {
+            <li>{{ company }}</li>
+            }
+            }
+            @empty {
+                No companies found
+            }
+        </ol>
+    </div>
+
+    <div class="col-4">
+        <ol>
+            @for(company of companyList; track company; let f=$first, l=$last, e=$even, o=$odd, c=$count, i=$index){
+            @if(o == true){
+            <li style="color: red;">{{ company }}</li>
+            } @else if(e == true){
+            <li style="color: blue;">{{ company }}</li>
+            } @else {
+            <li>{{ company }}</li>
+            }
+            }
+            @empty {
+                No companies found
+            }
+        </ol>
+    </div>
+
+    <div class="col-4">
+        <ol>
+            @for(company of companyList; track company; let f=$first, l=$last, e=$even, o=$odd, c=$count, i=$index){
+            <li>{{ company }} - #{{ i }}</li>
+            }
+        </ol>
+        @for(company of companyList; track company; let f=$first, l=$last, e=$even, o=$odd, c=$count, i=$index){
+            <p>{{ c }}</p>
+        }
+    </div>
+</div>

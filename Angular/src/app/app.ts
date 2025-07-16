@@ -4,12 +4,14 @@ import { User } from './user/user'
 import { DataBinding } from './data-binding/data-binding'
 import { Directives } from './directives/directives'
 import { StructuralDirectiveNgifVsIf } from './structural-directive-ngif-vs-if/structural-directive-ngif-vs-if'
+import { StructuralDirectiveNgforVsFor } from './structural-directive-ngfor-vs-for/structural-directive-ngfor-vs-for'
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    StructuralDirectiveNgifVsIf
+    StructuralDirectiveNgforVsFor,
+    // StructuralDirectiveNgifVsIf
     // Directives,
     // DataBinding,
     // User,
