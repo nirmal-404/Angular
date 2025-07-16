@@ -1,0 +1,43 @@
+<div align="center">
+    <div align="left" style="width: auto; border: 1px solid black; padding: 5px;">
+        <h4 style="text-decoration: underline;">One way data binding</h4>
+        <div>
+            <p>1. Interpolation</p>
+            <p style="padding-left: 20px;">{{ topic }} - {{ name }}</p>
+        </div>
+
+        <div>
+            <p>2. Property Binding</p>
+            <div>
+                <input type="text" name="" id="" [value]="topic">
+            </div>
+            <img width="auto" [src]="image" alt="pic">
+
+        </div>
+
+        <div>
+            <p>3. Event Binding</p>
+            <button (click)="onSave()">Save</button>
+        </div>
+        <select (change)="onChange()">
+            <option value="Sri Lanka">Sri Lanka</option>
+            <option value="Australia">Australia</option>
+            <option value="Italy">Italy</option>
+            <option value="Germany">Germany</option>
+            <option value="Singapore">Singapore</option>
+        </select>
+
+    </div>
+
+    <div align="left" style="width: auto; border: 1px solid black; padding: 5px;">
+        <h4 style="text-decoration: underline;">Two way data binding</h4>
+         <div>
+            <p>4. Ng Module</p>
+            <div>
+                <input type="text" [(ngModel)]="random">
+                <p>{{ random }}</p>
+            </div>
+         </div>   
+    </div>
+
+</div>
