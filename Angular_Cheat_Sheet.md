@@ -48,6 +48,18 @@ ng generate component user
 ng g c user
 ```
 
+#### Adding Bootstrap
+```bash
+npm i bootstrap
+```
+
+- goto angular.json
+- add js and css to scripts and styles
+```json
+    "styles": ["node_modules/bootstrap/dist/css/bootstrap.min.css"],
+    "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js"],
+```
+
 ---
 
 ## 🧩 Components
@@ -148,6 +160,62 @@ export class ExampleComponent {
   value = '';
 }
 ```
+
+---
+
+## 📋 Directives
+
+Directives are classes that add additional behavior to elements in your Angular applications. Use Angular's built-in directives to manage forms, lists, styles, and what users see.
+
+### Types of Directives
+
+#### 1. Component Directives
+- **Most common type**: Used with a template
+- **Example**: `@Component` decorator creates a component directive
+- **Purpose**: Combines template, styles, and logic into reusable UI components
+
+#### 2. Structural Directives
+- **Change appearance/behavior**: Modify the appearance and behavior of an element, component, or another directive
+- **Prefixed with `*`**: Use asterisk syntax in templates
+- **Common examples**:
+
+  - **ngIf**: Conditionally shows or hides elements based on boolean condition
+
+    ```html
+      <div *ngIf="isLoggedIn">Welcome back!</div>
+      <p *ngIf="user.age > 18; else underage">You are an adult</p>
+      <ng-template #underage>You are underage</ng-template>
+    ```
+
+  - **ngFor**: Repeat a node for each item in a list
+  
+    ```html
+      <li *ngFor="let user of users">
+        {{ user.name }}
+      </li>
+      <div *ngFor="let item of items; let i = index">
+        {{ i + 1 }}: {{ item }}
+      </div>
+    ```
+
+  - **ngSwitch**: Adds or removes DOM elements based on the value of a switch expression
+    ```html
+      <div [ngSwitch]="userRole">
+        <p *ngSwitchCase="'admin'">Admin Dashboard</p>
+        <p *ngSwitchCase="'user'">User Profile</p>
+        <p *ngSwitchDefault>Guest View</p>
+      </div>
+    ```
+
+#### 3. Attribute Directives
+- **Change DOM layout**: Change the DOM layout by adding and removing DOM elements
+- **Common examples**:
+    - **[ngClass]**: Adds or removes a set of CSS classes
+    - **[ngStyle]**: Adds or removes a set of HTML styles
+    - **[ngModel]**: Adds two-way data binding to an HTML form element
+
+---
+
 
 ---
 
