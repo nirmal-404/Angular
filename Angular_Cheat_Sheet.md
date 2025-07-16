@@ -186,6 +186,18 @@ Directives are classes that add additional behavior to elements in your Angular 
       <p *ngIf="user.age > 18; else underage">You are an adult</p>
       <ng-template #underage>You are underage</ng-template>
     ```
+  - **@if(){}**: Conditionally shows or hides elements based on boolean condition
+
+    ```html
+      @if(isLoggedIn){
+        <div>Welcome back!</div>
+      }
+      @if(user.age > 18) {
+          <p>You are an adult</p>
+      } @else {
+          <p>You are underage</p>
+      }
+    ```
 
   - **ngFor**: Repeat a node for each item in a list
   
