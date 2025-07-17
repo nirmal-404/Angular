@@ -247,13 +247,19 @@ Directives are classes that add additional behavior to elements in your Angular 
       </div>
     ```
 
+
+
 #### 3. Attribute Directives
 - **Change DOM layout**: Change the DOM layout by adding and removing DOM elements
 - **Common examples**:
     - **[ngClass]**: Adds or removes a set of CSS classes
+        ```html
+        <h3 [ngClass]="isTextGreen? 'text-success' : 'text-danger'">Example</h3>
+        ```
     - **[ngStyle]**: Adds or removes a set of HTML styles
-    - **[ngModel]**: Adds two-way data binding to an HTML form element
-
+        ```html
+        <h3 [ngStyle]="{'color': styleColor, 'font-weight' : 'lighter' }">Example</h3>
+        ```  
 ---
 
 
