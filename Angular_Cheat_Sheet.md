@@ -189,9 +189,6 @@ Directives are classes that add additional behavior to elements in your Angular 
   - **@if(){}**: Conditionally shows or hides elements based on boolean condition
 
     ```html
-      @if(isLoggedIn){
-        <div>Welcome back!</div>
-      }
       @if(user.age > 18) {
           <p>You are an adult</p>
       } @else {
@@ -205,11 +202,25 @@ Directives are classes that add additional behavior to elements in your Angular 
       <li *ngFor="let user of users">
         {{ user.name }}
       </li>
-      <div *ngFor="let item of items; let i = index">
-        {{ i + 1 }}: {{ item }}
-      </div>
     ```
 
+  - **@for(){}**: Repeat a node for each item in a list
+  
+    ```html
+      @for (user of users; track user;) {
+        <li>{{ user.name }}</li>
+      }
+      @empty{
+        no users found
+      }
+    ```
+    We can declare and use sppecial variables in a for block  - ($first, $last, $odd, $even, $count, $index)
+
+    ```html
+      @for(el of list; track el; let f=$first, l=$last, e=$even, o=$odd, c=$count, i=$index) {
+        <!-- use any logics based on those variables using @if / @else -->
+      }
+    ```
   - **ngSwitch**: Adds or removes DOM elements based on the value of a switch expression
     ```html
       <div [ngSwitch]="userRole">
