@@ -262,6 +262,68 @@ Directives are classes that add additional behavior to elements in your Angular 
         ```  
 ---
 
+## 📡 Signals
+- **Signal**: Wrapper around a value that notifies interested consumers when that value changes
+- Reading signals value → calling its getter function (allows Angular to track signal usage)
+
+### 1. Writable Signals
+```typescript
+counter = signal(0)
+console.log(counter())
+counter.set(3)
+counter.update(value => value + 1)
+```
+
+### 2. Computed Signals
+```typescript
+counter: WritableSignal<number> = signal(0)
+doubleCounter: Signal<number> = computed(() => counter() * 2)
+```
+
+### Why Signals?
+- **Angular 18** introduced zoneless change detection - no longer need zone.js
+- **Behavior Subject vs Signal**:
+  ```typescript
+  // RxJS
+  counter = new BehaviorSubject(0);
+  double = counter.pipe(map(count => count * 2));
+  
+  // Signals
+  counter = signal(0)
+  double = computed(() => counter() * 2);
+  ```
+
+---
+
+## 🔄 Effects
+- **Effect**: Operation that runs whenever one or more signal values change
+```typescript
+counter = signal(0)
+effect(() => console.log('counter is: ' + this.counter()))
+```
+
+### Example Component
+```typescript
+@Component({
+  selector: 'app-signals',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class Signals {
+  counter = signal(0);
+
+  constructor() {
+    effect(() => console.log('counter value: ' + this.counter()))
+  }
+
+  incrementCounter() {
+    this.counter.update(value => value + 1)
+  }
+
+  decrementCounter() {
+    this.counter.update(value => value - 1)
+  }
+}
+```
 
 ---
 
