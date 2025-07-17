@@ -230,6 +230,23 @@ Directives are classes that add additional behavior to elements in your Angular 
       </div>
     ```
 
+  - **@switch() {}**: Adds or removes DOM elements based on the value of a switch expression
+    ```html
+      <div>
+        @switch(userRole) {
+        @case('admin'){
+          <p>Admin Dashboard</p>
+        }
+        @case('user'){
+          <p>User Profile</p>
+        }
+        @default(){
+          <p>Guest View</p>
+        }
+      } 
+      </div>
+    ```
+
 #### 3. Attribute Directives
 - **Change DOM layout**: Change the DOM layout by adding and removing DOM elements
 - **Common examples**:
