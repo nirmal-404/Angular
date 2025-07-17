@@ -327,6 +327,35 @@ export class Signals {
 
 ---
 
+## 🔗 Linked Signals 
+- **Angular 19**: Evolution of signals with linkedSignal() in developer preview
+- **Timeline**:
+  - Angular 16 → signal() in developer preview
+  - Angular 17 → signal() becomes stable
+  - Angular 18 → zoneless change detection with signals
+  - Angular 19 → linkedSignal() in developer preview
+
+### Implementation Variants:
+1. **Shorthand syntax** - simplified for creating linked signals
+2. **Source and computation** - define source signal and computation function
+
+```typescript
+quantitySignal = signal(1)
+price = 10
+
+// Shorthand
+total = linkedSignal(() => {
+  return this.quantitySignal() * this.price
+})
+
+// Source and computation
+total = linkedSignal({
+  source: this.quantitySignal,
+  computation: () => this.quantitySignal() * this.price,
+})
+```
+---
+
 ## 💡 Quick Reference
 
 ### Common CLI Commands
