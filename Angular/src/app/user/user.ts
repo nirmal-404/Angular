@@ -1,13 +1,20 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule, FormsModule],
+  imports: [RouterLink],
   templateUrl: './user.html',
   styleUrl: './user.scss'
 })
 export class User {
 
+  constructor(private router : Router) {}
+
+  loginData() {
+    //  user verification login
+    // this.router.navigateByUrl("/structural-directives")
+    this.router.navigate(['/structural-directives'])
+  }
 }
