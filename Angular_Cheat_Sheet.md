@@ -354,6 +354,34 @@ total = linkedSignal({
   computation: () => this.quantitySignal() * this.price,
 })
 ```
+
+---
+
+## 🛣️ Routing 
+
+### Navigation Links
+```html
+<li class="nav-item">
+    <a class="nav-link" routerLinkActive="active" routerLink="user">User</a>
+</li>
+```
+
+### Route Configuration
+```typescript
+const routes: Routes = [
+  {path: '', redirectTo: 'user', pathMatch: 'full'},
+  {path: 'path', component: ComponentName},
+  {path: '**', component: PageNotFound}, // Wildcard route for 404
+];
+```
+
+### Key Concepts:
+- **routerLink**: Navigate to specific route
+- **routerLinkActive**: Add CSS class when route is active
+- **redirectTo**: Redirect empty path to default route
+- **pathMatch: 'full'**: Exact path matching for redirects
+- **Wildcard route (`**`)**: Catch-all for unmatched routes (must be last)
+
 ---
 
 ## 💡 Quick Reference
