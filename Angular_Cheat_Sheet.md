@@ -384,6 +384,23 @@ const routes: Routes = [
 
 ---
 
+## Navigation 🧭
+
+### Programmatic Navigation
+```typescript
+// Method 1: navigateByUrl
+this.router.navigateByUrl("/structural-directives")
+
+// Method 2: navigate (preferred)
+this.router.navigate(['/structural-directives'])
+```
+
+### Key Differences:
+- **navigateByUrl**: Navigate using URL string
+- **navigate**: Navigate using array of route segments (preferred)
+
+---
+
 ## 💡 Quick Reference
 
 ### Common CLI Commands
