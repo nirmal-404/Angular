@@ -8,12 +8,14 @@ import { StructuralDirectiveNgforVsFor } from './structural-directive-ngfor-vs-f
 import { StructuralDirectiveNgswitchVsSwitch } from './structural-directive-ngswitch-vs-switch/structural-directive-ngswitch-vs-switch'
 import { AttributeDirective } from './attribute-directive/attribute-directive'
 import { Signals } from './signals/signals'
+import { LinkedSignal } from './linked-signal/linked-signal'
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    Signals,
+    LinkedSignal,
+    // Signals,
     // AttributeDirective,
     // StructuralDirectiveNgswitchVsSwitch,
     // StructuralDirectiveNgforVsFor,
