@@ -1,0 +1,56 @@
+<div class="row text-center">
+    <div class="col-12 m-3">
+        <h1><u>Examples of Attribute Directives - ngClass</u></h1>
+    </div>
+</div>
+
+<div class="row text-center">
+    <div class="col-4">
+        <h3 [ngClass]="textColor">1.ex - ngClass</h3><br>
+        <h3 [class]="textColor">1.ex - class</h3><br>
+        <button class="btn btn-success m-2" (click)="changeColor('text-success')" >Change To Green</button>        
+        <button class="btn btn-danger m-2" (click)="changeColor('text-danger')" >Change To Red</button>        
+    </div>
+    
+    <div class="col-4">
+        <h3 [ngClass]="isTextGreen? 'text-success' : 'text-danger'">2.ex - ngClass</h3><br>
+        <h3 [class]="isTextGreen? 'text-success' : 'text-danger'">2.ex - class</h3><br>
+        
+        <input type="checkbox" [(ngModel)]="isTextGreen"> isTextGreen
+        <p>isTextGreen : {{isTextGreen}}</p>
+    </div>
+    
+    <div class="col-4">
+        <h3 [ngClass]="userClass">3.ex - ngClass</h3><br>
+        <h3 [class]="userClass">3.ex - class</h3><br>
+        <input type="text" [(ngModel)]="userClass" placeholder="Ex: text-success">
+    </div>
+</div>
+
+
+<div class="row text-center">
+    <div class="col-12 m-3">
+        <h1><u>Examples of Attribute Directives - ngStyle</u></h1>
+    </div>
+</div>
+
+<div class="row text-center">
+    <div class="col-4">
+        <h3 [ngStyle]="{'color': styleColor, 'font-weight' : 'lighter' }">1.ex - ngStyle</h3><br>
+        <h3 [style]="{'color': styleColor, 'font-weight' : 'lighter' }">1.ex - style</h3><br>
+        <button class="btn btn-warning m-2" (click)="updateColor('orange')" >Change To Orange</button>        
+        <button class="btn btn-primary m-2" (click)="updateColor('blue')" >Change To Blue</button>        
+    </div>
+    
+    <div class="col-4">
+        <h3 [ngStyle]="{color : isTextOrange ? 'orange' : 'blue'}">2.ex - ngStyle</h3><br>
+        <h3 [style]="{color : isTextOrange ? 'orange' : 'blue'}">2.ex - style</h3><br>
+        
+        <input type="checkbox" [(ngModel)]="isTextOrange"> isTextGreen
+        <p>isTextOrange : {{isTextOrange}}</p>
+    </div>
+    
+    <div class="col-4">
+        <h3 [ngStyle]="customClass">3.ex - ngStyle</h3><br>
+    </div>
+</div>

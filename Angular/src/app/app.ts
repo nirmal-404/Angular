@@ -6,12 +6,14 @@ import { Directives } from './directives/directives'
 import { StructuralDirectiveNgifVsIf } from './structural-directive-ngif-vs-if/structural-directive-ngif-vs-if'
 import { StructuralDirectiveNgforVsFor } from './structural-directive-ngfor-vs-for/structural-directive-ngfor-vs-for'
 import { StructuralDirectiveNgswitchVsSwitch } from './structural-directive-ngswitch-vs-switch/structural-directive-ngswitch-vs-switch'
+import { AttributeDirective } from './attribute-directive/attribute-directive'
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    StructuralDirectiveNgswitchVsSwitch
+    AttributeDirective
+    // StructuralDirectiveNgswitchVsSwitch
     // StructuralDirectiveNgforVsFor,
     // StructuralDirectiveNgifVsIf
     // Directives,
