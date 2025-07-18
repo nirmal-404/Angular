@@ -523,9 +523,97 @@ export class CustomDatePipe implements PipeTransform {
 ### Impure Pipes:
   - set ``` pure : false ``` in @Pipe
 
-
 ---
+## Angular Forms 📝
 
+Angular Forms is a module that provides a way to handle user input and validate form data. They offer a robust and scalable way to manage forms in Angular applications.
+
+### When to use Angular Forms:
+- Complex Form Validations
+- Large-Scale Applications
+- Dynamic Form Generation
+- Two-Way Data Binding
+
+### Types of Angular Forms:
+- **Template-Driven Forms**: Created using HTML templates, suitable for simple forms
+- **Reactive Forms**: Created programmatically using FormControl and FormGroup classes, suitable for complex forms
+
+### Steps Creating a Template-Driven Form:
+1. **FormsModule**: Import FormsModule
+2. **HTML Form**: Build HTML template
+3. **ngForm**: Converts to Template-driven form
+4. **FormControl**: Basic building block of Angular Forms
+5. **Submit the Form**: Use ngSubmit to submit form data
+
+### Template Reference Variables:
+```html
+<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+  <input #fname="ngModel" name="firstName" [(ngModel)]="userObject.firstName" required>
+</form>
+```
+
+### Form State Properties:
+- **value**: Current form/field value ` <pre>value : {{ userForm.value | json }}</pre> `
+- **valid/invalid**: Validation state 
+```
+  <pre>valid : {{ userForm.valid }}</pre>
+  <pre>invalid : {{ userForm.invalid }}</pre>
+```
+- **touched/untouched**: User interaction state
+```
+  <pre>touched : {{ userForm.touched }}</pre>
+  <pre>untouched : {{ userForm.untouched }}</pre>
+```
+- **dirty/pristine**: Modification state
+- **submitted**: Form submission state ` <pre>submitted: {{ userForm.submitted }}</pre> `
+
+### Validation Attributes:
+- **required**: Ensures the form control has a value
+- **minlength**: Ensures minimum length requirement
+- **maxlength**: Ensures maximum length limit
+- **pattern**: Ensures value matches specified pattern
+- **email**: Ensures valid email address format
+
+### Error Handling:
+```html
+@if(fname?.dirty || fname?.touched){
+  @if(fname?.errors?.['required']) {
+    <small class="text-danger">First Name is Required</small>
+  }
+  @if(fname?.errors?.['minlength']) {
+    <small class="text-danger">Must be at least 5 characters</small>
+  }
+}
+```
+
+### Form Methods:
+- **setValue()**: Sets all form control values
+```typescript
+  setValues (userForm: NgForm) {
+      let obj = {
+        firstName: 'Nirmal-setValues',
+        lastName: 'Perera-setValues',
+      }
+      userForm.setValue(obj)
+    }
+```
+- **patchValue()**: Updates specific form control values
+```typescript
+  patchValues (userForm: NgForm) {
+      let obj = {
+        firstName: 'Nirmal-setValues',
+      }
+      userForm.patchValue(obj)
+    }
+```
+- **reset()**: Resets form to initial state
+```typescript
+  resetValues (userForm: NgForm) {
+      // userForm.reset();
+      userForm.resetForm();
+  }
+```
+---
 ## 💡 Quick Reference
 
 ### Common CLI Commands
