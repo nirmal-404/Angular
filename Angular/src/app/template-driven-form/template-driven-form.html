@@ -1,0 +1,99 @@
+<div class="container">
+    <!-- userform -> local template variable -->
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+        <pre>value : {{ userForm.value | json }}</pre>
+        <pre>valid : {{ userForm.valid }}</pre>
+        <pre>invalid : {{ userForm.invalid }}</pre>
+        <pre>touched : {{ userForm.touched }}</pre>
+        <pre>untouched : {{ userForm.untouched }}</pre>
+        <pre>submitted: {{ userForm.submitted }}</pre>
+
+        <h2 class="text-center">User Infomation</h2>
+        <div class="form-group m-2">
+            <label>First Name</label>
+            <input type="text" class="form-control" placeholder="Enter first name" #fname="ngModel" name="firstName"
+                [(ngModel)]="userObject.firstName" required minlength="5" maxlength="10">
+            <pre>value : {{ fname.value }}</pre>
+            <pre>valid : {{ fname.valid }}</pre>
+            <pre>invalid : {{ fname.invalid }}</pre>
+            <pre>touched : {{ fname.touched }}</pre>
+            @if(fname?.dirty || fname?.touched){
+            @if(fname?.errors?.['required']) {
+            <small class="text-danger">First Name is Required</small>
+            }
+            @if(fname?.errors?.['minlength']) {
+            <small class="text-danger">First Name must be at least 5 characters long</small>
+            }
+            }
+
+        </div>
+        <div class="form-group m-2">
+            <label>Last Name</label>
+            <input type="text" class="form-control" placeholder="Enter last name" #lname="ngModel" name="lastName"
+                [(ngModel)]="userObject.lastName" required minlength="5" maxlength="10">
+            <pre>value : {{ lname.value }}</pre>
+            <pre>valid : {{ lname.valid }}</pre>
+            <pre>invalid : {{ lname.invalid }}</pre>
+            <pre>touched : {{ lname.touched }}</pre>
+            @if(lname?.dirty || lname?.touched){
+            @if(lname?.errors?.['required']) {
+            <small class="text-danger">Last Name is Required</small>
+            }
+            @if(lname?.errors?.['minlength']) {
+            <small class="text-danger">Last Name must be at least 5 characters long</small>
+            }
+            }
+        </div>
+        <div class="form-group m-2">
+            <label>Email</label>
+            <input type="email" class="form-control" placeholder="Enter email address" #emailid="ngModel" name="email"
+                [(ngModel)]="userObject.email" required minlength="8" email>
+            <pre>value : {{ emailid.value }}</pre>
+            <pre>valid : {{ emailid.valid }}</pre>
+            <pre>invalid : {{ emailid.invalid }}</pre>
+            <pre>touched : {{ emailid.touched }}</pre>
+            @if(emailid?.dirty || emailid?.touched){
+            @if(emailid?.errors?.['required']) {
+            <small class="text-danger">Email is Required</small>
+            }
+            @if(emailid?.errors?.['email']) {
+            <small class="text-danger">Please enter a valid email address</small>
+            }
+            }
+        </div>
+        <div class="form-group m-2">
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="Enter password" #password="ngModel" name="password"
+                [(ngModel)]="userObject.password" required>
+            <pre>value : {{ password.value }}</pre>
+            <pre>valid : {{ password.valid }}</pre>
+            <pre>invalid : {{ password.invalid }}</pre>
+            <pre>touched : {{ password.touched }}</pre>
+            @if(password?.dirty || password?.touched){
+            @if(password?.errors?.['required']) {
+            <small class="text-danger">Password is Required</small>
+            }
+            }
+        </div>
+        <div class="form-check m-2">
+            <input id="check" type="checkbox" class="form-check-input" name="isChecked" #isChecked="ngModel"
+                [(ngModel)]="userObject.isChecked" required>
+            <label for="check">Check me out</label>
+            <pre>value : {{ isChecked.value }}</pre>
+            <pre>valid : {{ isChecked.valid }}</pre>
+            <pre>invalid : {{ isChecked.invalid }}</pre>
+            <pre>touched : {{ isChecked.touched }}</pre>
+             @if(isChecked?.dirty || isChecked?.touched){
+            @if(isChecked?.errors?.['required']) {
+            <small class="text-danger">You need to chek this in orderr to continue</small>
+            }
+            }
+        </div>
+
+        <button class="btn btn-success m-2" [disabled]="!userForm.valid">Submit</button>
+        <!-- <button class="btn btn-success m-2" [disabled]="userForm.invalid">Submit</button> -->
+        <button class="btn btn-primary m-2" type="button" (click)="setValues(userForm)">Set Value</button>
+        <button class="btn btn-warning m-2" type="button" (click)="patchValues(userForm)">Patch Value</button>
+        <button class="btn btn-danger m-2" type="button" (click)="resetValues(userForm)">Reset</button>
+    </form>
+</div>

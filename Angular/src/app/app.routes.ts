@@ -6,6 +6,7 @@ import { StructuralDirectives } from './structural-directives/structural-directi
 import { PageNotFound } from './page-not-found/page-not-found';
 import { SignalLayout } from './signal-layout/signal-layout';
 import { BuiltInPipes } from './built-in-pipes/built-in-pipes';
+import { TemplateDrivenForm } from './template-driven-form/template-driven-form';
 
 export const routes: Routes = [
     // {path : '', component: User},
@@ -16,5 +17,6 @@ export const routes: Routes = [
     {path : 'attribute-directives', component: AttributeDirective},
     {path : 'signal', component: SignalLayout},
     {path : 'built-in-pipe', component: BuiltInPipes},
+    {path : 'tdf', component: TemplateDrivenForm},
     {path : '**', component: PageNotFound},
 ];
