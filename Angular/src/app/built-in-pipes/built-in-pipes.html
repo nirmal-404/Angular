@@ -1,0 +1,54 @@
+<div class="m-3">
+
+    <div style="border-bottom: 10px solid black;">
+        <h3 class="text-primary m-3">String type pipe</h3>
+        <h4>1. UpperCasePipe : {{ angularPipes | uppercase}}</h4>
+        <hr>
+        <h4>2. LowerCasePipe : {{ angularPipes | lowercase}}</h4>
+        <hr>
+        <h4>3. TitleCasePipe : {{ angularPipes | titlecase}}</h4>
+        <hr>
+        <h4>4. SlicePipe(4:8) : {{angularPipes | slice : 4:8 }}</h4>
+        <h4>4. SlicePipe(4) : {{angularPipes | slice : 4 }}</h4>
+        <h4>4. SlicePipe(4:-10) : {{angularPipes | slice : 4:-10 }}</h4>
+        <h4>4. SlicePipe(-10) : {{angularPipes | slice : -10 }}</h4>
+        <hr>
+        <h4>5. JsonPipe : {{ personData | json }}</h4>
+        <pre>5. JsonPipe : {{ personData | json }}</pre>
+    </div>
+
+    <div style="border-bottom: 10px solid black;">
+        <h3 class="text-primary m-3">Number type pipe</h3>
+        <h4>6. DatePipe : {{currentDate | date}}</h4>
+        <h4>6. DatePipe : {{currentDate | date | uppercase}}</h4>
+        <h4>6. short : {{currentDate | date:'short'}}</h4>
+        <h4>6. shortDatePipe : {{currentDate | date:'shortDate'}}</h4>
+        <h4>6. shortTimePipe : {{currentDate | date:'shortTime'}}</h4>
+        <h4>6. mediumPipe : {{currentDate | date:'medium'}}</h4>
+        <h4>6. mediumDatePipe : {{currentDate | date:'mediumDate'}}</h4>
+        <h4>6. mediumTimePipe : {{currentDate | date:'mediumTime'}}</h4>
+        <hr>
+        <h4>7. DecimalPipe : {{ 3.141592653 | number:'1.4'}}</h4>
+        <h4>7. DecimalPipe : {{ 3.141592653 | number:'2.5'}}</h4>
+        <h4>7. DecimalPipe : {{ 3.14 | number:'2.5'}}</h4>
+        <hr>
+        <h4>8. PercentPipe {{ 0.25 | percent }}</h4>
+        <hr>
+        <h4>9. CurrencyPipe {{ 123.20 | currency }}</h4>
+        <h4>9. CurrencyPipe {{ 123.20 | currency : 'EUR' }}</h4>
+        <h4>9. CurrencyPipe {{ 123.20 | currency : 'LKR '}}</h4>
+        <hr>
+    </div>
+
+    <div style="border-bottom: 10px solid black;">
+        <h3 class="text-primary m-3">Async Pipe</h3>
+        <h4>10. AsyncPipe :
+            <ul>
+                @for(item of items | async; track item){
+                <li>{{ item }}</li>
+                }
+            </ul>
+
+        </h4>
+    </div>
+</div>

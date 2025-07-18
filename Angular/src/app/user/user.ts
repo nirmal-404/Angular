@@ -4,7 +4,9 @@ import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user',
-  imports: [RouterLink],
+  imports: [
+    // RouterLink
+  ],
   templateUrl: './user.html',
   styleUrl: './user.scss'
 })
