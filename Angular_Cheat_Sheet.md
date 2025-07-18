@@ -490,6 +490,39 @@ this.router.navigate(['/structural-directives'])
   ```
 
 ### Custom Pipes:
+**Creating a pipe class** → `ng g p <pipe_name>`
+1. Implement the interface (transform)
+2. Add the transform method to the pipe class
+3. Add transformation logic in the transform method
+4. Declare the pipe (import where needed)
+5. Use the custom pipe (just like built-in pipes)
+
+**Types:**
+- **Pure pipes** – Only executed when input value changes
+- **Impure pipes** – Executed on every change detection cycle, regardless of whether the imput value has changed
+
+### Pure Pipes:
+
+**Usage:**
+```html
+<h6>Mobile number {{ mobileNumber | custom }}</h6>
+```
+
+**Examples:**
+```typescript
+// Custom date pipe
+@Pipe({ name: 'customDate' })
+export class CustomDatePipe implements PipeTransform {
+  private DatePipe = new DatePipe('en-US')
+  transform(value: any, ...args: any[]): any {
+    return this.DatePipe.transform(value, 'dd-MM-yy')
+  }
+}
+```
+
+### Impure Pipes:
+
+
 
 ---
 
