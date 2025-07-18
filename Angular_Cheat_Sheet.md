@@ -521,7 +521,7 @@ export class CustomDatePipe implements PipeTransform {
 ```
 
 ### Impure Pipes:
-
+  - set ``` pure : false ``` in @Pipe
 
 
 ---
