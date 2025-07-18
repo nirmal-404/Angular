@@ -1,7 +1,9 @@
 <div class="m-3">
 
-    <div style="border-bottom: 10px solid black;">
-        <h3 class="text-primary m-3">String type pipe</h3>
+    <!-- <div style="border-bottom: 10px solid blue;">
+        <h2 class="text-danger">1 Built-In Pipes</h2>
+        <div style="border-bottom: 5px solid black;">
+        <h3 class="text-primary m-3">1.1 String type pipe</h3>
         <h4>1. UpperCasePipe : {{ angularPipes | uppercase}}</h4>
         <hr>
         <h4>2. LowerCasePipe : {{ angularPipes | lowercase}}</h4>
@@ -17,8 +19,8 @@
         <pre>5. JsonPipe : {{ personData | json }}</pre>
     </div>
 
-    <div style="border-bottom: 10px solid black;">
-        <h3 class="text-primary m-3">Number type pipe</h3>
+    <div style="border-bottom: 5px solid black;">
+        <h3 class="text-primary m-3">1.2 Number type pipe</h3>
         <h4>6. DatePipe : {{currentDate | date}}</h4>
         <h4>6. DatePipe : {{currentDate | date | uppercase}}</h4>
         <h4>6. short : {{currentDate | date:'short'}}</h4>
@@ -40,8 +42,8 @@
         <hr>
     </div>
 
-    <div style="border-bottom: 10px solid black;">
-        <h3 class="text-primary m-3">Async Pipe</h3>
+    <div>
+        <h3 class="text-primary m-3">1.3 Async Pipe</h3>
         <h4>10. AsyncPipe :
             <ul>
                 @for(item of items | async; track item){
@@ -50,5 +52,18 @@
             </ul>
 
         </h4>
+    </div>
+    </div> -->
+
+    <div>
+        <h2 class="text-danger">2 Cutom Pipes</h2>
+        <h6> Mobile number {{ mobileNumber | custom }}</h6>
+        <h6> Mobile number {{ null | custom }}</h6>
+        <h6> Mobile number {{ undefined | custom }}</h6>
+        <h6> Mobile number {{ '' | custom }}</h6>
+
+        <hr>
+
+        <h6>Customized date format: {{ currentDate | customDate }}</h6>
     </div>
 </div>
