@@ -1,15 +1,19 @@
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { of } from 'rxjs'
 import { CustomPipe } from '../custom-pipe'
 import { CustomDatePipe } from '../custom-date-pipe'
+import { PurePipe } from '../pure-pipe'
+import { ImpurePipe } from '../impure-pipe'
 
 @Component({
   selector: 'app-built-in-pipes',
   imports: [
     CommonModule, 
     CustomPipe,
-    CustomDatePipe
+    CustomDatePipe,
+    PurePipe,
+    ImpurePipe
   ],
   templateUrl: './built-in-pipes.html',
   styleUrl: './built-in-pipes.scss'

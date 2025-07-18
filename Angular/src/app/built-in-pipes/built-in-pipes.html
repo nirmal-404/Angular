@@ -1,6 +1,6 @@
 <div class="m-3">
 
-    <!-- <div style="border-bottom: 10px solid blue;">
+    <div style="border-bottom: 10px solid blue;">
         <h2 class="text-danger">1 Built-In Pipes</h2>
         <div style="border-bottom: 5px solid black;">
         <h3 class="text-primary m-3">1.1 String type pipe</h3>
@@ -53,9 +53,9 @@
 
         </h4>
     </div>
-    </div> -->
+    </div>
 
-    <div>
+    <div style="border-bottom: 10px solid blue;">
         <h2 class="text-danger">2 Cutom Pipes</h2>
         <h6> Mobile number {{ mobileNumber | custom }}</h6>
         <h6> Mobile number {{ null | custom }}</h6>
@@ -65,5 +65,12 @@
         <hr>
 
         <h6>Customized date format: {{ currentDate | customDate }}</h6>
+    </div>
+
+    <div style="border-bottom: 10px solid blue;">
+        <h2 class="text-danger">3 Pure vs Impure Pipes</h2>
+            <h6>Pure Pipe : Squre of 5 is {{ 5 | pure}}</h6>
+            <hr>
+            <h6>Impure Pipe : {{ '' | impure}}</h6>
     </div>
 </div>
