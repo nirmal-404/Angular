@@ -401,6 +401,24 @@ this.router.navigate(['/structural-directives'])
 
 ---
 
+## 🔄 Lifecycle Hooks 
+
+- **Lifecycle hooks**: Series of methods that Angular calls at different stages of a component's life cycle
+- Allow developers to execute specific code at specific points (initialization, updates, destruction)
+
+### Hook Order & Usage:
+
+1. **ngOnChanges()** → Called when an input property changes (triggers with @Input decorator)
+2. **ngOnInit()** → Called once after component is initialized (API calls)
+3. **ngDoCheck()** → Called every time change detection runs (button click/any event)
+4. **ngAfterContentInit()** → When content is projected through ng-content element
+5. **ngAfterContentChecked()** → Called after component's content has been checked
+6. **ngAfterViewInit()** → Called after component's view has been initialized (ViewChild)
+7. **ngAfterViewChecked()** → Called after component's view has been checked
+8. **ngOnDestroy()** → Called before component is destroyed (cleanup)
+
+---
+
 ## 💡 Quick Reference
 
 ### Common CLI Commands
