@@ -419,6 +419,80 @@ this.router.navigate(['/structural-directives'])
 
 ---
 
+## 🔧 Pipes 
+
+- **Pipes**: Functions that transform and format data in Angular templates
+- Take data as input, perform operations, and return transformed data
+
+### When to use Pipes:
+- Format data for display
+- Convert data types
+- Perform calculations or aggregations
+- Filter or sort data
+
+### Built-in Pipes:
+- **LowerCasePipe** – Converts text to lowercase
+  ```typescript
+  {{ "Hello world" | lowercase}} // hello world
+  ```
+- **UpperCasePipe** – Converts text to uppercase 
+  ```typescript
+  {{ "Hello world" | uppercase}} // HELLO WORLD
+  ```
+- **TitleCasePipe** – Capitalizes the first letter of each word
+  ```typescript
+  {{ "Hello world" | titlecase}} // Hello World
+  ```
+- **DatePipe** – Formats dates according to specified formats 
+
+  - (date, short, shortDate, shortTime, medium, mediumDate, mediumTime)
+    ```typescript
+    {{ "Hello world" | date}} 
+    ```
+- **JsonPipe** – Converts objects/data to JSON string
+  ```typescript
+  {{ personData | json}} 
+  /* { 
+    "name": "Nirmal", 
+    "age": 30, 
+    "city": "gampaha" 
+  } */
+  ```
+- **DecimalPipe** – Formats numbers with decimal precision
+  ```typescript
+  {{ 3.141592653 | number:'1.4'}} //  3.1416
+  {{ 3.141592653 | number:'2.5'}} // 03.14159
+  {{ 3.14 | number:'2.5'}}        // 03.14000
+  ```
+- **PercentPipe** – Displays numbers as percentages
+  ```typescript
+    {{ 0.25 | percent }} // 25%
+  ```
+- **CurrencyPipe** – Formats numbers as currency values
+  ```typescript
+    {{ 123.20 | currency }} // $123.20
+    {{ 123.20 | currency : 'EUR'}} // €123.20
+  ```
+- **SlicePipe** – Extracts a portion of an array/string
+  ```typescript
+    {{[1,2,3,4,5,6] | slice : 1:4 }}   // 2,3,4
+    {{[1,2,3,4,5,6] | slice : 3 }}     // 4,5,6,
+    {{[1,2,3,4,5,6] | slice : 1: -1 }} // 2,3,4,5
+  ```
+- **AsyncPipe** – Automatically subscribes to Observable or Promise and returns latest value
+  ```typescript
+    @for(item of items | async; track item){
+      <li>{{ item }}</li>
+    }
+    // * Apple
+    // * Banana
+    // * Mango
+  ```
+
+### Custom Pipes:
+
+---
+
 ## 💡 Quick Reference
 
 ### Common CLI Commands
