@@ -5,12 +5,15 @@
 ### Installation & Setup
 
 #### Prerequisites
+
 Install Node.js and npm, then install TypeScript globally:
+
 ```bash
 npm i -g typescript
 ```
 
 #### Verify Installation
+
 ```bash
 node -v
 npm -v
@@ -18,11 +21,13 @@ tsc -v
 ```
 
 #### Install Angular CLI
+
 ```bash
 npm i -g @angular/cli
 ```
 
 #### Verify Angular CLI
+
 ```bash
 ng -v
 ```
@@ -30,11 +35,13 @@ ng -v
 ### Project Management
 
 #### Create New Project
+
 ```bash
 ng new project-name
 ```
 
 #### Run Development Server
+
 ```bash
 ng serve
 # or
@@ -42,6 +49,7 @@ ng s
 ```
 
 #### Generate Component
+
 ```bash
 ng generate component user
 # or
@@ -49,12 +57,14 @@ ng g c user
 ```
 
 #### Adding Bootstrap
+
 ```bash
 npm i bootstrap
 ```
 
 - goto angular.json
 - add js and css to scripts and styles
+
 ```json
     "styles": ["node_modules/bootstrap/dist/css/bootstrap.min.css"],
     "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js"],
@@ -67,11 +77,13 @@ npm i bootstrap
 Angular offers two types of components with different dependency management approaches:
 
 ### Standalone Components
+
 - **Independent**: Can be used anywhere in your application
 - **Self-contained**: No need to declare in modules
 - **Modern approach**: Recommended for new Angular applications
 
 ### Traditional Components
+
 - **Module-dependent**: Must be declared in a module before use
 - **Legacy approach**: Still widely used in existing applications
 - **Requires NgModule**: Components must be added to module declarations
@@ -79,17 +91,21 @@ Angular offers two types of components with different dependency management appr
 ### Using Standalone Components
 
 #### Step 1: Add Component Selector
+
 Add the component selector to your HTML template:
+
 ```html
 <!-- In app.component.html -->
 <app-user></app-user>
 ```
 
 #### Step 2: Import Component
+
 Import the standalone component in your TypeScript file:
+
 ```typescript
 // In app.component.ts
-import { UserComponent } from './user/user.component';
+import { UserComponent } from './user/user.component'
 
 @Component({
   selector: 'app-root',
@@ -109,10 +125,13 @@ export class AppComponent {
 Data binding enables communication between your component class and template.
 
 ### One-Way Data Binding
+
 Data flows from component to template elements.
 
 #### 1. Interpolation
+
 Display component properties in the template:
+
 ```html
 <p>{{ topic }}</p>
 <h1>{{ title }}</h1>
@@ -120,44 +139,53 @@ Display component properties in the template:
 ```
 
 #### 2. Property Binding
+
 Bind component properties to HTML element attributes:
+
 ```html
-<img [src]="imageUrl" [alt]="imageAlt">
+<img [src]="imageUrl" [alt]="imageAlt" />
 <button [disabled]="isDisabled">Click me</button>
 <div [class]="dynamicClass"></div>
 ```
 
 #### 3. Event Binding
+
 Handle user interactions and DOM events:
+
 ```html
 <button (click)="onClick()">Click me</button>
-<input (change)="onInputChange($event)">
+<input (change)="onInputChange($event)" />
 <form (submit)="onSubmit()">Submit</form>
 ```
 
 ### Two-Way Data Binding
+
 Data flows in both directions between component and template.
 
 #### NgModel Directive
+
 Combines property and event binding for form controls:
+
 ```html
-<input [(ngModel)]="username" placeholder="Enter username">
+<input [(ngModel)]="username" placeholder="Enter username" />
 <textarea [(ngModel)]="description"></textarea>
 ```
 
 #### Required Import
+
 To use `[(ngModel)]`, import `FormsModule`:
+
 ```typescript
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'
 
 @Component({
   selector: 'app-example',
   standalone: true,
   imports: [FormsModule], // Add FormsModule here
-  template: `<input [(ngModel)]="value">`
+  template: `<input [(ngModel)]="value" />`
 })
 export class ExampleComponent {
-  value = '';
+  value = ''
 }
 ```
 
@@ -170,11 +198,13 @@ Directives are classes that add additional behavior to elements in your Angular 
 ### Types of Directives
 
 #### 1. Component Directives
+
 - **Most common type**: Used with a template
 - **Example**: `@Component` decorator creates a component directive
 - **Purpose**: Combines template, styles, and logic into reusable UI components
 
 #### 2. Structural Directives
+
 - **Change appearance/behavior**: Modify the appearance and behavior of an element, component, or another directive
 - **Prefixed with `*`**: Use asterisk syntax in templates
 - **Common examples**:
@@ -182,91 +212,91 @@ Directives are classes that add additional behavior to elements in your Angular 
   - **ngIf**: Conditionally shows or hides elements based on boolean condition
 
     ```html
-      <div *ngIf="isLoggedIn">Welcome back!</div>
-      <p *ngIf="user.age > 18; else underage">You are an adult</p>
-      <ng-template #underage>You are underage</ng-template>
+    <div *ngIf="isLoggedIn">Welcome back!</div>
+    <p *ngIf="user.age > 18; else underage">You are an adult</p>
+    <ng-template #underage>You are underage</ng-template>
     ```
+
   - **@if(){}**: Conditionally shows or hides elements based on boolean condition
 
     ```html
-      @if(user.age > 18) {
-          <p>You are an adult</p>
-      } @else {
-          <p>You are underage</p>
-      }
+    @if(user.age > 18) {
+    <p>You are an adult</p>
+    } @else {
+    <p>You are underage</p>
+    }
     ```
 
   - **ngFor**: Repeat a node for each item in a list
-  
+
     ```html
-      <li *ngFor="let user of users">
-        {{ user.name }}
-      </li>
+    <li *ngFor="let user of users">{{ user.name }}</li>
     ```
 
   - **@for(){}**: Repeat a node for each item in a list
-  
-    ```html
-      @for (user of users; track user;) {
-        <li>{{ user.name }}</li>
-      }
-      @empty{
-        no users found
-      }
-    ```
-    We can declare and use sppecial variables in a for block  - ($first, $last, $odd, $even, $count, $index)
 
     ```html
-      @for(el of list; track el; let f=$first, l=$last, e=$even, o=$odd, c=$count, i=$index) {
-        <!-- use any logics based on those variables using @if / @else -->
-      }
+    @for (user of users; track user;) {
+    <li>{{ user.name }}</li>
+    } @empty{ no users found }
     ```
-  - **ngSwitch**: Adds or removes DOM elements based on the value of a switch expression
+
+    We can declare and use sppecial variables in a for block - ($first, $last, $odd, $even, $count, $index)
+
     ```html
-      <div [ngSwitch]="userRole">
-        <p *ngSwitchCase="'admin'">Admin Dashboard</p>
-        <p *ngSwitchCase="'user'">User Profile</p>
-        <p *ngSwitchDefault>Guest View</p>
-      </div>
+    @for(el of list; track el; let f=$first, l=$last, e=$even, o=$odd, c=$count,
+    i=$index) {
+    <!-- use any logics based on those variables using @if / @else -->
+    }
+    ```
+
+  - **ngSwitch**: Adds or removes DOM elements based on the value of a switch expression
+
+    ```html
+    <div [ngSwitch]="userRole">
+      <p *ngSwitchCase="'admin'">Admin Dashboard</p>
+      <p *ngSwitchCase="'user'">User Profile</p>
+      <p *ngSwitchDefault>Guest View</p>
+    </div>
     ```
 
   - **@switch() {}**: Adds or removes DOM elements based on the value of a switch expression
     ```html
-      <div>
-        @switch(userRole) {
-        @case('admin'){
-          <p>Admin Dashboard</p>
-        }
-        @case('user'){
-          <p>User Profile</p>
-        }
-        @default(){
-          <p>Guest View</p>
-        }
-      } 
-      </div>
+    <div>
+      @switch(userRole) { @case('admin'){
+      <p>Admin Dashboard</p>
+      } @case('user'){
+      <p>User Profile</p>
+      } @default(){
+      <p>Guest View</p>
+      } }
+    </div>
     ```
 
-
-
 #### 3. Attribute Directives
+
 - **Change DOM layout**: Change the DOM layout by adding and removing DOM elements
 - **Common examples**:
-    - **[ngClass]**: Adds or removes a set of CSS classes
-        ```html
-        <h3 [ngClass]="isTextGreen? 'text-success' : 'text-danger'">Example</h3>
-        ```
-    - **[ngStyle]**: Adds or removes a set of HTML styles
-        ```html
-        <h3 [ngStyle]="{'color': styleColor, 'font-weight' : 'lighter' }">Example</h3>
-        ```  
+  - **[ngClass]**: Adds or removes a set of CSS classes
+    ```html
+    <h3 [ngClass]="isTextGreen? 'text-success' : 'text-danger'">Example</h3>
+    ```
+  - **[ngStyle]**: Adds or removes a set of HTML styles
+    ```html
+    <h3 [ngStyle]="{'color': styleColor, 'font-weight' : 'lighter' }">
+      Example
+    </h3>
+    ```
+
 ---
 
 ## 📡 Signals
+
 - **Signal**: Wrapper around a value that notifies interested consumers when that value changes
 - Reading signals value → calling its getter function (allows Angular to track signal usage)
 
 ### 1. Writable Signals
+
 ```typescript
 counter = signal(0)
 console.log(counter())
@@ -275,41 +305,47 @@ counter.update(value => value + 1)
 ```
 
 ### 2. Computed Signals
+
 ```typescript
 counter: WritableSignal<number> = signal(0)
 doubleCounter: Signal<number> = computed(() => counter() * 2)
 ```
 
 ### Why Signals?
+
 - **Angular 18** introduced zoneless change detection - no longer need zone.js
 - **Behavior Subject vs Signal**:
+
   ```typescript
   // RxJS
-  counter = new BehaviorSubject(0);
-  double = counter.pipe(map(count => count * 2));
-  
+  counter = new BehaviorSubject(0)
+  double = counter.pipe(map(count => count * 2))
+
   // Signals
   counter = signal(0)
-  double = computed(() => counter() * 2);
+  double = computed(() => counter() * 2)
   ```
 
 ---
 
 ## 🔄 Effects
+
 - **Effect**: Operation that runs whenever one or more signal values change
+
 ```typescript
 counter = signal(0)
 effect(() => console.log('counter is: ' + this.counter()))
 ```
 
 ### Example Component
+
 ```typescript
 @Component({
   selector: 'app-signals',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Signals {
-  counter = signal(0);
+  counter = signal(0)
 
   constructor() {
     effect(() => console.log('counter value: ' + this.counter()))
@@ -327,7 +363,8 @@ export class Signals {
 
 ---
 
-## 🔗 Linked Signals 
+## 🔗 Linked Signals
+
 - **Angular 19**: Evolution of signals with linkedSignal() in developer preview
 - **Timeline**:
   - Angular 16 → signal() in developer preview
@@ -336,6 +373,7 @@ export class Signals {
   - Angular 19 → linkedSignal() in developer preview
 
 ### Implementation Variants:
+
 1. **Shorthand syntax** - simplified for creating linked signals
 2. **Source and computation** - define source signal and computation function
 
@@ -351,57 +389,62 @@ total = linkedSignal(() => {
 // Source and computation
 total = linkedSignal({
   source: this.quantitySignal,
-  computation: () => this.quantitySignal() * this.price,
+  computation: () => this.quantitySignal() * this.price
 })
 ```
 
 ---
 
-## 🛣️ Routing 
+## 🛣️ Routing
 
 ### Navigation Links
+
 ```html
 <li class="nav-item">
-    <a class="nav-link" routerLinkActive="active" routerLink="user">User</a>
+  <a class="nav-link" routerLinkActive="active" routerLink="user">User</a>
 </li>
 ```
 
 ### Route Configuration
+
 ```typescript
 const routes: Routes = [
-  {path: '', redirectTo: 'user', pathMatch: 'full'},
-  {path: 'path', component: ComponentName},
-  {path: '**', component: PageNotFound}, // Wildcard route for 404
-];
+  { path: '', redirectTo: 'user', pathMatch: 'full' },
+  { path: 'path', component: ComponentName },
+  { path: '**', component: PageNotFound } // Wildcard route for 404
+]
 ```
 
 ### Key Concepts:
+
 - **routerLink**: Navigate to specific route
 - **routerLinkActive**: Add CSS class when route is active
 - **redirectTo**: Redirect empty path to default route
 - **pathMatch: 'full'**: Exact path matching for redirects
-- **Wildcard route (`**`)**: Catch-all for unmatched routes (must be last)
+- **Wildcard route (`**`)\*\*: Catch-all for unmatched routes (must be last)
 
 ---
 
 ## Navigation 🧭
 
 ### Programmatic Navigation
+
 ```typescript
 // Method 1: navigateByUrl
-this.router.navigateByUrl("/structural-directives")
+this.router.navigateByUrl('/structural-directives')
 
 // Method 2: navigate (preferred)
 this.router.navigate(['/structural-directives'])
 ```
 
 ### Key Differences:
+
 - **navigateByUrl**: Navigate using URL string
 - **navigate**: Navigate using array of route segments (preferred)
 
 ---
 
-## 🔄 Lifecycle Hooks 
+## 🔄 Lifecycle Hooks
 
 - **Lifecycle hooks**: Series of methods that Angular calls at different stages of a component's life cycle
 - Allow developers to execute specific code at specific points (initialization, updates, destruction)
@@ -419,39 +462,62 @@ this.router.navigate(['/structural-directives'])
 
 ---
 
-## 🔧 Pipes 
+## 🔧 Pipes
 
 - **Pipes**: Functions that transform and format data in Angular templates
 - Take data as input, perform operations, and return transformed data
 
 ### When to use Pipes:
+
 - Format data for display
 - Convert data types
 - Perform calculations or aggregations
 - Filter or sort data
 
 ### Built-in Pipes:
+
 - **LowerCasePipe** – Converts text to lowercase
   ```typescript
-  {{ "Hello world" | lowercase}} // hello world
+  {
+    {
+      'Hello world' | lowercase
+    }
+  } // hello world
   ```
-- **UpperCasePipe** – Converts text to uppercase 
+- **UpperCasePipe** – Converts text to uppercase
   ```typescript
-  {{ "Hello world" | uppercase}} // HELLO WORLD
+  {
+    {
+      'Hello world' | uppercase
+    }
+  } // HELLO WORLD
   ```
 - **TitleCasePipe** – Capitalizes the first letter of each word
   ```typescript
-  {{ "Hello world" | titlecase}} // Hello World
+  {
+    {
+      'Hello world' | titlecase
+    }
+  } // Hello World
   ```
-- **DatePipe** – Formats dates according to specified formats 
+- **DatePipe** – Formats dates according to specified formats
 
   - (date, short, shortDate, shortTime, medium, mediumDate, mediumTime)
     ```typescript
-    {{ "Hello world" | date}} 
+    {
+      {
+        'Hello world' | date
+      }
+    }
     ```
+
 - **JsonPipe** – Converts objects/data to JSON string
   ```typescript
-  {{ personData | json}} 
+  {
+    {
+      personData | json
+    }
+  }
   /* { 
     "name": "Nirmal", 
     "age": 30, 
@@ -466,7 +532,11 @@ this.router.navigate(['/structural-directives'])
   ```
 - **PercentPipe** – Displays numbers as percentages
   ```typescript
-    {{ 0.25 | percent }} // 25%
+  {
+    {
+      0.25 | percent
+    }
+  } // 25%
   ```
 - **CurrencyPipe** – Formats numbers as currency values
   ```typescript
@@ -490,7 +560,9 @@ this.router.navigate(['/structural-directives'])
   ```
 
 ### Custom Pipes:
+
 **Creating a pipe class** → `ng g p <pipe_name>`
+
 1. Implement the interface (transform)
 2. Add the transform method to the pipe class
 3. Add transformation logic in the transform method
@@ -498,17 +570,20 @@ this.router.navigate(['/structural-directives'])
 5. Use the custom pipe (just like built-in pipes)
 
 **Types:**
+
 - **Pure pipes** – Only executed when input value changes
 - **Impure pipes** – Executed on every change detection cycle, regardless of whether the imput value has changed
 
 ### Pure Pipes:
 
 **Usage:**
+
 ```html
 <h6>Mobile number {{ mobileNumber | custom }}</h6>
 ```
 
 **Examples:**
+
 ```typescript
 // Custom date pipe
 @Pipe({ name: 'customDate' })
@@ -521,24 +596,29 @@ export class CustomDatePipe implements PipeTransform {
 ```
 
 ### Impure Pipes:
-  - set ``` pure : false ``` in @Pipe
+
+- set `pure : false` in @Pipe
 
 ---
+
 ## Angular Forms 📝
 
 Angular Forms is a module that provides a way to handle user input and validate form data. They offer a robust and scalable way to manage forms in Angular applications.
 
 ### When to use Angular Forms:
+
 - Complex Form Validations
 - Large-Scale Applications
 - Dynamic Form Generation
 - Two-Way Data Binding
 
 ### Types of Angular Forms:
+
 - **Template-Driven Forms**: Created using HTML templates, suitable for simple forms
 - **Reactive Forms**: Created programmatically using FormControl and FormGroup classes, suitable for complex forms
 
 ### Steps Creating a Template-Driven Form:
+
 1. **FormsModule**: Import FormsModule
 2. **HTML Form**: Build HTML template
 3. **ngForm**: Converts to Template-driven form
@@ -546,28 +626,40 @@ Angular Forms is a module that provides a way to handle user input and validate 
 5. **Submit the Form**: Use ngSubmit to submit form data
 
 ### Template Reference Variables:
+
 ```html
 <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
-  <input #fname="ngModel" name="firstName" [(ngModel)]="userObject.firstName" required>
+  <input
+    #fname="ngModel"
+    name="firstName"
+    [(ngModel)]="userObject.firstName"
+    required
+  />
 </form>
 ```
 
 ### Form State Properties:
-- **value**: Current form/field value ` <pre>value : {{ userForm.value | json }}</pre> `
-- **valid/invalid**: Validation state 
+
+- **value**: Current form/field value `<pre>value : {{ userForm.value | json }}</pre>`
+- **valid/invalid**: Validation state
+
 ```
   <pre>valid : {{ userForm.valid }}</pre>
   <pre>invalid : {{ userForm.invalid }}</pre>
 ```
+
 - **touched/untouched**: User interaction state
+
 ```
   <pre>touched : {{ userForm.touched }}</pre>
   <pre>untouched : {{ userForm.untouched }}</pre>
 ```
+
 - **dirty/pristine**: Modification state
-- **submitted**: Form submission state ` <pre>submitted: {{ userForm.submitted }}</pre> `
+- **submitted**: Form submission state `<pre>submitted: {{ userForm.submitted }}</pre>`
 
 ### Validation Attributes:
+
 - **required**: Ensures the form control has a value
 - **minlength**: Ensures minimum length requirement
 - **maxlength**: Ensures maximum length limit
@@ -575,19 +667,19 @@ Angular Forms is a module that provides a way to handle user input and validate 
 - **email**: Ensures valid email address format
 
 ### Error Handling:
+
 ```html
-@if(fname?.dirty || fname?.touched){
-  @if(fname?.errors?.['required']) {
-    <small class="text-danger">First Name is Required</small>
-  }
-  @if(fname?.errors?.['minlength']) {
-    <small class="text-danger">Must be at least 5 characters</small>
-  }
-}
+@if(fname?.dirty || fname?.touched){ @if(fname?.errors?.['required']) {
+<small class="text-danger">First Name is Required</small>
+} @if(fname?.errors?.['minlength']) {
+<small class="text-danger">Must be at least 5 characters</small>
+} }
 ```
 
 ### Form Methods:
+
 - **setValue()**: Sets all form control values
+
 ```typescript
   setValues (userForm: NgForm) {
       let obj = {
@@ -597,7 +689,9 @@ Angular Forms is a module that provides a way to handle user input and validate 
       userForm.setValue(obj)
     }
 ```
+
 - **patchValue()**: Updates specific form control values
+
 ```typescript
   patchValues (userForm: NgForm) {
       let obj = {
@@ -606,17 +700,186 @@ Angular Forms is a module that provides a way to handle user input and validate 
       userForm.patchValue(obj)
     }
 ```
+
 - **reset()**: Resets form to initial state
+
 ```typescript
   resetValues (userForm: NgForm) {
       // userForm.reset();
       userForm.resetForm();
   }
 ```
+
+### Steps to Create a Reactive Form
+
+1. **Import ReactiveFormsModule**
+2. **Create a form instance** using FormGroup
+3. **Create a form template** and map form instance to `[formGroup]`
+4. **Add form controls** to your template fields using `formControlName`
+5. **Handle form submission** with `(ngSubmit)` event
+
+### Building Blocks of Reactive Forms
+
+**FormControl:** Represents a single form input element (e.g., textbox, checkbox).
+
+**FormGroup:** A collection of FormControl instances, allowing validation and tracking of multiple form fields together.
+
+**FormArray:** Manages an array of FormControl or FormGroup, useful for dynamic forms like adding multiple phone numbers or addresses.
+
+### Key Form Methods
+
+**setValue()** - Sets values for ALL form controls (must provide complete object)
+
+```typescript
+this.reactiveForm.setValue({
+  /* all fields required */
+})
+```
+
+**patchValue()** - Updates specific form controls only
+
+```typescript
+this.reactiveForm.patchValue({ firstname: 'John' }) // partial update
+```
+
+**reset()** - Resets form to initial state
+
+```typescript
+this.reactiveForm.reset() // entire form
+this.reactiveForm.controls['fieldName'].reset() // specific control
+```
+
+### Important Directives
+
+- `[formGroup]` - Binds FormGroup to form element
+- `formControlName` - Links input to FormControl
+- `formGroupName` - References nested FormGroup
+- `(ngSubmit)` - Handles form submission
+
+### Form State Properties
+
+- `valid`/`invalid` - Validation status
+- `touched`/`untouched` - User interaction status
+- `dirty`/`pristine` - Value change status
+- `value` - Current form values object
+
+### Form Creation Methods
+
+#### Traditional Approach
+
+```typescript
+reactiveForm = new FormGroup({
+  fieldName: new FormControl('initialValue'),
+  nestedGroup: new FormGroup({
+    nestedField: new FormControl()
+  })
+})
+```
+
+#### FormBuiulder Approacch
+form builder is service that makes it easier to create instances of form group, form control and form array.
+
+- inject the form builder service in to the component constructor
+- use form builder to generate our components
+- define the stucture of the form array
+
+```typescript
+constructor(private fb: FormBuilder) {
+  this.reactiveForm = this.fb.group({
+    fieldName: ['initialValue', [Validators.required]]
+  });
+}
+```
+
+#### Template pattern
+
+```html
+<form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+  <input formControlName="fieldName" />
+  <div formGroupName="nestedGroup">
+    <input formControlName="nestedField" />
+  </div>
+</form>
+```
+
+### Validation
+
+#### Built-in Validators
+
+- **`Validators.required`** - Field is required
+- **`Validators.minLength(n)`** - Minimum character length
+- **`Validators.maxLength(n)`** - Maximum character length
+- **`Validators.pattern('regex')`** - Pattern matching
+- **`Validators.email`** - Email format validation
+
+#### Validation Setup
+
+```typescript
+fieldName: ['', [Validators.required, Validators.minLength(5)]]
+```
+
+#### Template Validation Display
+
+```typescript
+@if(form.controls['field'].dirty || form.controls['field'].touched) {
+  @if(form.controls['field'].errors?.['required']) {
+    <small class="text-danger">Field is required</small>
+  }
+}
+```
+
+### Working with FormArray
+
+#### Setup in Component:
+
+```typescript
+skills: this.fb.array([]) // Empty array initially
+
+get skills(): FormArray {
+  return this.reactiveForm.get('skills') as FormArray;
+}
+
+addSkill() {
+  this.skills.push(this.fb.group({ skill: '' }));
+}
+
+deleteSkill(index: number) {
+  this.skills.removeAt(index);
+}
+```
+
+#### Template Usage:
+
+```html
+<div formArrayName="skills">
+  <div *ngFor="let skill of skills.controls; let i = index">
+    <div [formGroupName]="i">
+      <input formControlName="skill" />
+      <button (click)="deleteSkill(i)">Delete</button>
+    </div>
+  </div>
+</div>
+```
+
+#### Template Pattern:
+
+```html
+<form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+  <input formControlName="fieldName" />
+  <div formGroupName="nestedGroup">
+    <input formControlName="nestedField" />
+  </div>
+</form>
+```
+
+###
+
 ---
+
 ## 💡 Quick Reference
 
 ### Common CLI Commands
+
 ```bash
 ng new <project-name>          # Create new project
 ng serve                       # Start dev server
@@ -628,6 +891,7 @@ ng generate module <name>      # Generate module
 ```
 
 ### Component Syntax Examples
+
 ```typescript
 // Standalone Component
 @Component({
@@ -637,21 +901,21 @@ ng generate module <name>      # Generate module
   template: `<h1>{{ title }}</h1>`
 })
 export class ExampleComponent {
-  title = 'Hello Angular';
+  title = 'Hello Angular'
 }
 ```
 
 ### Data Binding Syntax
+
 ```html
 <!-- Interpolation -->
 {{ expression }}
 
 <!-- Property Binding -->
 <element [property]="value">
-
-<!-- Event Binding -->
-<element (event)="handler()">
-
-<!-- Two-way Binding -->
-<input [(ngModel)]="property">
+  <!-- Event Binding -->
+  <element (event)="handler()">
+    <!-- Two-way Binding -->
+    <input [(ngModel)]="property" /></element
+></element>
 ```
