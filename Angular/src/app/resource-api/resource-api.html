@@ -1,0 +1,62 @@
+<div class="container">
+    <h2 class="text-center m-4">resouce() and rxResource() API</h2>
+    <h4>Normal</h4>
+    <table class="table table-info table-stripped">
+        <thead>
+            <tr>
+                <th class="col-3">Id</th>
+                <th class="col-3">Username</th>
+                <th class="col-3">Email</th>
+                <th class="col-3">Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of apiData">
+                <td>{{ data.user_id }}</td>
+                <td>{{ data.username }}</td>
+                <td>{{ data.email }}</td>
+                <td>{{ data.password }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>rxResource() -> works with observables</h4>
+    <!-- <table class="table table-info table-stripped">
+        <thead>
+            <tr>
+                <th class="col-3">Id</th>
+                <th class="col-3">Username</th>
+                <th class="col-3">Email</th>
+                <th class="col-3">Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of rxResourceData.value()">
+                <td>{{ data.user_id }}</td>
+                <td>{{ data.username }}</td>
+                <td>{{ data.email }}</td>
+                <td>{{ data.password }}</td>
+            </tr>
+        </tbody>
+    </table> -->
+
+    <h4>resource() -> works with promises</h4>
+    <!-- <table class="table table-info table-stripped">
+        <thead>
+            <tr>
+                <th class="col-3">Id</th>
+                <th class="col-3">Username</th>
+                <th class="col-3">Email</th>
+                <th class="col-3">Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of rxResourceData.value()">
+                <td>{{ data.user_id }}</td>
+                <td>{{ data.username }}</td>
+                <td>{{ data.email }}</td>
+                <td>{{ data.password }}</td>
+            </tr>
+        </tbody>
+    </table> -->
+</div>
