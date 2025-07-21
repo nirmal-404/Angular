@@ -1450,6 +1450,13 @@ import { CommonModule } from '@angular/common';
 
 ---
 
+## resource() and rxResource()
+
+resource -> works with promises
+rx resource -> works with observables
+
+---
+
 ## 💡 Quick Reference
 
 ### Common CLI Commands
