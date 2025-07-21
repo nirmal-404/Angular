@@ -601,7 +601,7 @@ export class CustomDatePipe implements PipeTransform {
 
 ---
 
-## Angular Forms 📝
+## 📝 Angular Forms 
 
 Angular Forms is a module that provides a way to handle user input and validate form data. They offer a robust and scalable way to manage forms in Angular applications.
 
@@ -872,7 +872,92 @@ deleteSkill(index: number) {
 </form>
 ```
 
-###
+---
+
+## 🔧 Services and Dependency Injection
+
+### Service
+A service is a self-contained, reusable piece of code that performs a specific task, making it easily shareable across multiple components within your application.
+
+### When to Use Services?
+
+**Share data between components**
+- Create a service that contains the user information
+- Inject that service into the required components
+
+**Share business logic across multiple components**
+- If you want to check some kind of eligibility, create a service that contains the logic
+- Inject it to the required components, avoiding code duplication
+
+**Interact with a database or external data source**
+- API service sends an HTTP GET request to the database and receives the data as observables
+- Components subscribe to access the data
+
+### Purpose of Using Services
+- **Code Organization:** Keeps code clean and maintainable
+- **Reuse:** Enables code reuse across multiple components
+- **Dependency Injection:** Simplifies dependency management and testing
+
+### How Does Dependency Injection Work?
+1. Provider Registration
+2. Injector Creation
+3. Component Requests Service
+4. Injector Resolves Dependency
+5. Injector Creates Service Instance
+6. Injector Provides Service Instance
+7. Component Uses Service
+
+### Service Structure
+
+```typescript
+@Injectable({
+  providedIn: 'root'
+})
+export class SharedData {
+  API_URL = "https://jsonplaceholder.typicode.com/users";
+  
+  userData = {
+    id: 1,
+    name: 'Nirmal',
+    username: 'nirmal123', 
+    email: 'nirmal@gmail.com',
+    subscription: 'basic'
+  };
+
+  constructor(private _http: HttpClient) {}
+
+  getUserData() {
+    return this._http.get(this.API_URL);
+  }
+
+  isEligibleForSubscription() {
+    return this.userData.subscription == 'basic' && 
+           this.userData.email.endsWith('@gmail.com');
+  }
+}
+```
+
+### Component Implementation
+```typescript
+constructor(private _sharedData: SharedData) {
+  this.dummyData = this._sharedData.userData;
+  this.isEligible = this._sharedData.isEligibleForSubscription();
+}
+
+getData() {
+  this._sharedData.getUserData().subscribe(res => {
+    this.apiData = res;
+  });
+}
+```
+
+### Key Concepts
+- Services are **singletons** by default
+- Use `@Injectable()` decorator for service classes
+- Inject services via constructor with **private** keyword
+- Use **underscore prefix** (`_serviceName`) naming convention
+- Services can subscribe to **observables** for async data
+
 
 ---
 
