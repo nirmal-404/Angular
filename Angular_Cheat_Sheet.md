@@ -958,6 +958,495 @@ getData() {
 - Use **underscore prefix** (`_serviceName`) naming convention
 - Services can subscribe to **observables** for async data
 
+---
+
+## 📝 CRUD Operations
+
+### Setup
+Installing JSON Server:
+```bash
+npm i -g json-server@0
+```
+
+Create `db.json` at root:
+```json
+{
+  "Users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "username": "johndoe",
+      "email": "john@example.com"
+    }
+  ]
+}
+```
+
+Run JSON Server:
+```bash
+json-server --watch db.json
+```
+
+The server will run on `http://localhost:3000` by default.
+
+### Service Implementation
+
+The CRUD operations are handled by the `Crud` service (`crud.ts`):
+
+```typescript
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Iuser } from './iuser';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class Crud {
+  base_url: string = "http://localhost:3000/Users";
+
+  constructor(private http: HttpClient) {}
+
+  // READ - Get all users
+  getData() {
+    return this.http.get<Iuser[]>(this.base_url);
+  }
+
+  // READ - Get user by ID
+  getDataById(id: number) {
+    return this.http.get<Iuser>(`${this.base_url}/${id}`);
+  }
+
+  // CREATE - Add new user
+  postData(data: Iuser) {
+    return this.http.post(this.base_url, data);
+  }
+
+  // UPDATE - Update existing user
+  putDataById(id: number, data: Iuser) {
+    return this.http.put(`${this.base_url}/${id}`, data);
+  }
+
+  // DELETE - Remove user
+  deleteData(id: number) {
+    return this.http.delete(`${this.base_url}/${id}`);
+  }
+}
+```
+
+### User Interface
+
+The `Iuser` interface defines the data structure:
+
+```typescript
+export interface Iuser {
+  id?: number;
+  name: string;
+  username: string;
+  email: string;
+}
+```
+
+### Main CRUD Component
+
+#### HTML Template (`crud.html`)
+```html
+<div class="container">
+  <h2 class="text-center m-4">Angular Crud operations with json server</h2>
+  
+  <table class="table table-success table-stripped">
+    <thead>
+      <tr>
+        <th class="col-2">Id</th>
+        <th class="col-2">Name</th>
+        <th class="col-2">Username</th>
+        <th class="col-3">Email</th>
+        <th class="col-1">Update</th>
+        <th class="col-1">View</th>
+        <th class="col-1">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of apiData">
+        <td>{{ data.id }}</td>
+        <td>{{ data.name }}</td>
+        <td>{{ data.username }}</td>
+        <td>{{ data.email }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm m-1" (click)="onUpdate(data.id)">
+            Update
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-info btn-sm m-1" (click)="onView(data.id)">
+            View
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-danger btn-sm m-1" (click)="onDelete(data.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <button class="btn btn-info m-2" (click)="addNewUser()">Add New User</button>
+</div>
+```
+
+#### Component Logic (`crud.ts`)
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Crud } from '../crud';
+import { Iuser } from '../iuser';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-crud',
+  imports: [CommonModule],
+  templateUrl: './crud.html',
+  styleUrl: './crud.scss'
+})
+export class CRUD implements OnInit {
+  apiData: Iuser[] = [];
+
+  constructor(private crud: Crud, private router: Router) {}
+
+  ngOnInit(): void {
+    this.getAllData();
+  }
+
+  // Load all users
+  getAllData() {
+    this.crud.getData().subscribe(res => {
+      this.apiData = res;
+    });
+  }
+
+  // Navigate to add user form
+  addNewUser() {
+    this.router.navigateByUrl('add-user');
+  }
+
+  // Navigate to update user form
+  onUpdate(id: number) {
+    this.router.navigate(['update-user', id]);
+  }
+
+  // Navigate to view user details
+  onView(id: number) {
+    this.router.navigate(['view-user', id]);
+  }
+
+  // Delete user with confirmation
+  onDelete(id: number) {
+    this.crud.deleteData(id).subscribe(res => {
+      alert('Record deleted successfully!');
+      this.getAllData();
+    });
+  }
+}
+```
+
+### CREATE Operation (Add User)
+
+#### HTML Template (`add-user.html`)
+```html
+<div class="container">
+  <form class="w-75 p-5 mt-5 mx-auto bg-info" [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+    <h2 class="text-center m-4">Add User</h2>
+
+    <div class="form-group m-3">
+      <label class="form-label">Name:</label>
+      <input type="text" class="form-control" placeholder="Enter the name." formControlName="name">
+    </div>
+
+    <div class="form-group m-3">
+      <label class="form-label">Username:</label>
+      <input type="text" class="form-control" placeholder="Enter the username." formControlName="username">
+    </div>
+
+    <div class="form-group m-3">
+      <label class="form-label">Email:</label>
+      <input type="email" class="form-control" placeholder="Enter the email." formControlName="email">
+    </div>
+
+    <div class="text-center m-3">
+      <button class="btn btn-success btn-lg m-1" type="submit">Add</button>
+      <button class="btn btn-danger btn-lg m-1" type="button" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>
+```
+
+#### Component Logic (`add-user.ts`)
+```typescript
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Crud } from '../crud';
+
+@Component({
+  selector: 'app-add-user',
+  imports: [ReactiveFormsModule],
+  templateUrl: './add-user.html',
+  styleUrl: './add-user.scss'
+})
+export class AddUser {
+  addUserForm: FormGroup;
+
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private crud: Crud
+  ) {
+    this.addUserForm = this.fb.group({
+      name: [''],
+      username: [''],
+      email: ['']
+    });
+  }
+
+  onSubmit() {
+    this.crud.postData(this.addUserForm.value).subscribe(res => {
+      this.router.navigateByUrl('crud');
+    });
+  }
+
+  onCancel() {
+    this.router.navigateByUrl('crud');
+  }
+}
+```
+
+
+### READ Operation (View User)
+
+#### HTML Template (`view-user.html`)
+```html
+<div class="container">
+  <div class="w-75 p-5 mt-5 mx-auto bg-info">
+    <h2 class="text-center m-4">View User</h2>
+    
+    <div class="form-group m-3">
+      <label class="form-label">Name:</label>
+      <strong>{{ userData?.name }}</strong>
+    </div>
+    
+    <div class="form-group m-3">
+      <label class="form-label">Username:</label>
+      <strong>{{ userData?.username }}</strong>
+    </div>
+    
+    <div class="form-group m-3">
+      <label class="form-label">Email:</label>
+      <strong>{{ userData?.email }}</strong>
+    </div>
+    
+    <div class="text-center m-3">
+      <button class="btn btn-danger btn-lg" (click)="onClose()">Close</button>
+    </div>
+  </div>
+</div>
+```
+
+#### Component Logic (`view-user.ts`)
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Crud } from '../crud';
+import { ActivatedRoute, Router } from '@angular/router';
+
+@Component({
+  selector: 'app-view-user',
+  imports: [],
+  templateUrl: './view-user.html',
+  styleUrl: './view-user.scss'
+})
+export class ViewUser implements OnInit {
+  userId!: { uid: number };
+  userData: any;
+
+  constructor(
+    private crud: Crud,
+    private activeRoute: ActivatedRoute,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.userId = {
+      uid: this.activeRoute.snapshot.params['id']
+    };
+
+    console.log(this.userId.uid);
+
+    this.crud.getDataById(this.userId.uid).subscribe(res => {
+      this.userData = res;
+    });
+  }
+
+  onClose() {
+    this.router.navigateByUrl('crud');
+  }
+}
+```
+
+### UPDATE Operation (Edit User)
+
+#### HTML Template (`update-user.html`)
+```html
+<div class="container">
+  <form class="w-75 p-5 mt-5 mx-auto bg-info" [formGroup]="updateUserForm" (ngSubmit)="onSubmit()">
+    <h2 class="text-center m-4">Update User</h2>
+
+    <div class="form-group m-3">
+      <label class="form-label">Name:</label>
+      <input type="text" class="form-control" placeholder="Enter the name." formControlName="name">
+    </div>
+
+    <div class="form-group m-3">
+      <label class="form-label">Username:</label>
+      <input type="text" class="form-control" placeholder="Enter the username." formControlName="username">
+    </div>
+
+    <div class="form-group m-3">
+      <label class="form-label">Email:</label>
+      <input type="email" class="form-control" placeholder="Enter the email." formControlName="email">
+    </div>
+
+    <div class="text-center m-3">
+      <button class="btn btn-success btn-lg m-1" type="submit">Update</button>
+      <button class="btn btn-danger btn-lg m-1" type="button" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>
+```
+
+#### Component Logic (`update-user.ts`)
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Crud } from '../crud';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-update-user',
+  imports: [ReactiveFormsModule],
+  templateUrl: './update-user.html',
+  styleUrl: './update-user.scss'
+})
+export class UpdateUser implements OnInit {
+  updateUserForm: FormGroup;
+  userData: any;
+  userId!: { uid: number };
+
+  constructor(
+    private crud: Crud,
+    private activeRoute: ActivatedRoute,
+    private router: Router,
+    private fb: FormBuilder
+  ) {
+    this.updateUserForm = this.fb.group({
+      id: [''],
+      name: [''],
+      username: [''],
+      email: ['']
+    });
+  }
+
+  ngOnInit(): void {
+    this.userId = {
+      uid: this.activeRoute.snapshot.params['id']
+    };
+
+    console.log(this.userId.uid);
+
+    // Fetch existing user data and populate form
+    this.crud.getDataById(this.userId.uid).subscribe(res => {
+      this.userData = res;
+
+      this.updateUserForm.setValue({
+        id: this.userData.id,
+        name: this.userData.name,
+        username: this.userData.username,
+        email: this.userData.email
+      });
+    });
+  }
+
+  onSubmit() {
+    this.crud.putDataById(this.userId.uid, this.updateUserForm.value).subscribe(res => {
+      this.router.navigateByUrl('crud');
+    });
+  }
+
+  onCancel() {
+    this.router.navigateByUrl('crud');
+  }
+}
+```
+
+### DELETE Operation
+
+The DELETE operation is implemented directly in the main CRUD component:
+
+```typescript
+onDelete(id: number) {
+  this.crud.deleteData(id).subscribe(res => {
+    alert('Record deleted successfully!');
+    this.getAllData();
+  });
+}
+```
+
+#### Suggested Improvements:
+```typescript
+onDelete(id: number) {
+  if (confirm('Are you sure you want to delete this user?')) {
+    this.crud.deleteData(id).subscribe({
+      next: (res) => {
+        alert('Record deleted successfully!');
+        this.getAllData();
+      },
+      error: (err) => {
+        alert('Error deleting record!');
+        console.error(err);
+      }
+    });
+  }
+}
+```
+
+### Routing Configuration
+
+Make sure your `app.routes.ts` includes these routes:
+
+```typescript
+import { Routes } from '@angular/router';
+import { CRUD } from './crud/crud.component';
+import { AddUser } from './add-user/add-user.component';
+import { ViewUser } from './view-user/view-user.component';
+import { UpdateUser } from './update-user/update-user.component';
+
+export const routes: Routes = [
+  { path: '', redirectTo: '/crud', pathMatch: 'full' },
+  { path: 'crud', component: CRUD },
+  { path: 'add-user', component: AddUser },
+  { path: 'view-user/:id', component: ViewUser },
+  { path: 'update-user/:id', component: UpdateUser }
+];
+```
+
+### Dependencies
+
+Ensure these modules are imported in your `app.module.ts` or component imports:
+
+```typescript
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+```
 
 ---
 
