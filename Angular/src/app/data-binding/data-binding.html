@@ -31,13 +31,29 @@
 
     <div align="left" style="width: auto; border: 1px solid black; padding: 5px;">
         <h4 style="text-decoration: underline;">Two way data binding</h4>
-         <div>
+        <div>
             <p>4. Ng Module</p>
             <div>
                 <input type="text" [(ngModel)]="random">
                 <p>{{ random }}</p>
             </div>
-         </div>   
+        </div>
     </div>
 
+    <div align="left" style="width: auto; border: 1px solid black; padding: 5px;">
+        <h4 style="text-decoration: underline;">Shared Data - Dependancy Injection</h4>
+        <div class="m-3">
+            <ul>
+                <li>Id : {{ dummyData.id }}</li>
+                <li>Name : {{ dummyData.name }}</li>
+                <li>UserName : {{ dummyData.username }}</li>
+                <li>Email : {{ dummyData.email }}</li>
+            </ul>
+        </div>
+        @if(isEligible){
+        <p class="text-success">You are eligible for permium subscription</p>
+        } @else {
+        <p class="text-danger">You are not eligible for permium subscription</p>
+        }
+    </div>
 </div>

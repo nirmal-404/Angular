@@ -8,6 +8,7 @@ import { SignalLayout } from './signal-layout/signal-layout';
 import { BuiltInPipes } from './built-in-pipes/built-in-pipes';
 import { TemplateDrivenForm } from './template-driven-form/template-driven-form';
 import { ReactiveForm } from './reactive-form/reactive-form';
+import { Profile } from './profile/profile';
 
 export const routes: Routes = [
     // {path : '', component: User},
@@ -20,5 +21,6 @@ export const routes: Routes = [
     {path : 'built-in-pipe', component: BuiltInPipes},
     {path : 'tdf', component: TemplateDrivenForm},
     {path : 'reactive-form', component: ReactiveForm},
+    {path : 'profile', component: Profile},
     {path : '**', component: PageNotFound},
 ];

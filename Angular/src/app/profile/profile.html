@@ -1,0 +1,26 @@
+<div class="m-3">
+
+    <!-- 1. Sharing data accross multiple components -->
+    <ul>
+        <li>Id : {{ dummyData.id }}</li>
+        <li>Name : {{ dummyData.name }}</li>
+        <li>UserName : {{ dummyData.username }}</li>
+        <li>Email : {{ dummyData.email }}</li>
+    </ul>
+
+    <!-- 2. Sharing business logic accross multple components -->
+    @if(isEligible){
+    <p class="text-success">You are eligible for permium subscription</p>
+    } @else {
+    <p class="text-danger">You are not eligible for permium subscription</p>
+    }
+
+    <!-- 3. Interacting with apis -->
+    <ul *ngFor="let data of apiData">
+        <li>Id : {{ data.id }}</li>
+        <li>Name : {{ data.name }}</li>
+        <li>UserName : {{ data.username }}</li>
+        <li>Email : {{ data.email }}</li>
+    </ul>
+
+</div>
