@@ -1450,10 +1450,42 @@ import { CommonModule } from '@angular/common';
 
 ---
 
-## resource() and rxResource()
+## 📡 resource() and rxResource()
+ - resource() → works with promises
+ - rxResource() → works with observables
 
-resource -> works with promises
-rx resource -> works with observables
+---
+## 🔄 Reusable Components
+
+A reusable component is a self-contained piece of code that represents a UI element or a group of UI elements. Its purpose is to be used multiple times throughout an application, making it reusable.
+
+`<app-reusable [childProperty]="parentProperty"></app-reusable>` - partent.html
+
+`parentProperty : string = "CRUD Operations : Angular 20"` - partent.ts
+
+`<p>{{ childProperty }}</p>` - reusable.html
+
+`@Input() childProperty : string = "Welocme to Angular 20"` - reusable.ts
+
+## 🎯 Decorators
+
+In Angular, decorators are special functions that allow you to extend or modify the behavior of classes, methods, and properties. They're easily recognizable by the "@" symbol prefix.
+
+### 📦 Class Decorators
+Class decorators are applied to classes to modify their behavior.  
+e.g.: @Component(), @Pipe(), @Injectable(), etc.
+
+### 🏷️ Property Decorators
+Property decorators are applied to class properties and are commonly used to modify properties within classes.  
+e.g.: @Input(), @Output(), @ViewChild(), etc.
+
+### ⚡ Method Decorators
+Method decorators are applied to class methods and modify their behavior.  
+e.g.: @HostListener().
+
+### 🔧 Parameter Decorators
+Parameter decorators are used for parameters inside class constructors and provide additional information about constructor parameters.  
+e.g.: @Inject().
 
 ---
 

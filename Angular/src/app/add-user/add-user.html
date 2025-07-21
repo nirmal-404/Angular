@@ -1,4 +1,5 @@
 <div class="container">
+    <app-reusable [childProperty]="parentProperty"></app-reusable>
     <form class="w-75 p-5 mt-5 mx-auto bg-info" [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
         <h2 class="text-center m-4">Add User</h2>
 

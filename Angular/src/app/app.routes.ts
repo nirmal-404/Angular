@@ -14,6 +14,7 @@ import { AddUser } from './add-user/add-user';
 import { UpdateUser } from './update-user/update-user';
 import { ViewUser } from './view-user/view-user';
 import { ResourceApi } from './resource-api/resource-api';
+import { Reusable } from './reusable/reusable';
 
 export const routes: Routes = [
     // {path : '', component: User},
@@ -32,5 +33,6 @@ export const routes: Routes = [
     {path : 'update-user/:id', component: UpdateUser},
     {path : 'view-user/:id', component: ViewUser},
     {path : 'resource-api', component: ResourceApi},
+    {path : 'reusable-components', component: Reusable},
     {path : '**', component: PageNotFound},
 ];

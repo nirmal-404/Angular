@@ -3,15 +3,18 @@ import { Crud } from '../crud';
 import { Iuser } from '../iuser';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Reusable } from '../reusable/reusable';
 
 @Component({
   selector: 'app-crud',
-  imports: [CommonModule],
+  imports: [CommonModule, Reusable],
   templateUrl: './crud.html',
   styleUrl: './crud.scss'
 })
 export class CRUD implements OnInit{
 
+  parentProperty : string = "CRUD Operations : Angular 20"
+  
   apiData : Iuser[] = [];
 
   constructor(private crud : Crud, private router : Router){}

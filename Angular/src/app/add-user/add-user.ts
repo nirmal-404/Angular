@@ -2,14 +2,17 @@ import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Crud } from '../crud'
+import { Reusable } from '../reusable/reusable'
 
 @Component({
   selector: 'app-add-user',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Reusable],
   templateUrl: './add-user.html',
   styleUrl: './add-user.scss'
 })
 export class AddUser {
+
+  parentProperty : string = "Add User : Angular 20"
   addUserForm: FormGroup
 
   constructor (

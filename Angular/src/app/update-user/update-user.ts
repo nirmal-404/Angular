@@ -2,14 +2,18 @@ import { Component, OnInit } from '@angular/core'
 import { Crud } from '../crud'
 import { ActivatedRoute, Router } from '@angular/router'
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { Reusable } from '../reusable/reusable'
 
 @Component({
   selector: 'app-update-user',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Reusable],
   templateUrl: './update-user.html',
   styleUrl: './update-user.scss'
 })
 export class UpdateUser implements OnInit {
+
+  parentProperty : string = "Update User : Angular 20"
+  
   updateUserForm: FormGroup
 
   constructor (
