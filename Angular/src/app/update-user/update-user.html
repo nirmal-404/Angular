@@ -1,0 +1,25 @@
+<div class="container">
+    <form class="w-75 p-5 mt-5 mx-auto bg-info" [formGroup]="updateUserForm" (ngSubmit)="onSubmit()">
+        <h2 class="text-center m-4">Update User</h2>
+
+        <div class="form-group m-3">
+            <label class="form-label">Name: </label>
+            <input type="text" class="form-control" placeholder="Enter the name." formControlName="name">
+        </div>
+
+        <div class="form-group m-3">
+            <label class="form-label">Username: </label>
+            <input type="text" class="form-control" placeholder="Enter the username." formControlName="username">
+        </div>
+
+        <div class="form-group m-3">
+            <label class="form-label">Email: </label>
+            <input type="email" class="form-control" placeholder="Enter the email." formControlName="email">
+        </div>
+
+        <div class="text-center m-3">
+            <button class="btn btn-success btn-lg m-1">Update</button>
+            <button class="btn btn-danger btn-lg m-1" (click)="onCancel()">Cancel</button>
+        </div>
+    </form>
+</div>

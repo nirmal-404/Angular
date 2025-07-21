@@ -1,0 +1,52 @@
+{
+  "Users": [
+    {
+      "name": "abc",
+      "username": "abc123",
+      "email": "abc@gmail.com",
+      "id": 1
+    },
+    {
+      "name": "def",
+      "username": "def123",
+      "email": "def@gmail.com",
+      "id": 2
+    },
+    {
+      "name": "ghi",
+      "username": "ghi123",
+      "email": "ghi@gmail.com",
+      "id": 3
+    },
+    {
+      "name": "jkl",
+      "username": "jkl123",
+      "email": "jkl@gmail.com",
+      "id": 4
+    },
+    {
+      "name": "mno",
+      "username": "mno123",
+      "email": "mno@gmail.com",
+      "id": 5
+    },
+    {
+      "name": "pqr",
+      "username": "pqr123",
+      "email": "pqr@gmail.com",
+      "id": 6
+    },
+    {
+      "name": "stu",
+      "username": "stu123",
+      "email": "stu@gmail.com",
+      "id": 7
+    },
+    {
+      "name": "vwx",
+      "username": "vwx123",
+      "email": "vwx@gmail.com",
+      "id": 8
+    }
+  ]
+}
