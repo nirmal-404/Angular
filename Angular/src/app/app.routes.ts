@@ -16,6 +16,7 @@ import { ViewUser } from './view-user/view-user';
 import { ResourceApi } from './resource-api/resource-api';
 import { Reusable } from './reusable/reusable';
 import { Parent } from './parent/parent';
+import { Storage } from './storage/storage';
 
 export const routes: Routes = [
     // {path : '', component: User},
@@ -36,5 +37,6 @@ export const routes: Routes = [
     {path : 'resource-api', component: ResourceApi},
     {path : 'reusable-components', component: Reusable},
     {path : 'parent-to-child', component: Parent},
+    {path : 'storage', component: Storage},
     {path : '**', component: PageNotFound},
 ];

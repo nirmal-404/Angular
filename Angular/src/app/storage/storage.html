@@ -1,0 +1,79 @@
+<div class="container text-center">
+    <h4 class="text-info">Session Storage</h4>
+    <div class="row m-4">
+
+
+        <div class="col-3 m-1">
+            <button class="btn btn-info" (click)="setSession()">Set Session</button>
+        </div>
+
+        <div class="col-3 m-1">
+            <button class="btn btn-info" (click)="getSession()">Get Session</button>
+        </div>
+
+        <div class="col-3 m-1">
+            <button class="btn btn-info" (click)="removeSession()">Remove Session</button>
+        </div>
+
+        <div class="col-3 m-1">
+            <button class="btn btn-info" (click)="clearSession()">Clear</button>
+        </div>
+
+        @if(sessionValue) {
+        <h6>Session value : {{ sessionValue }}</h6>
+        }
+    </div>
+
+    <hr>
+
+    <h4 class="text-success">Local Storage</h4>
+    <div class="row m-4">
+
+
+        <div class="col-3 m-1">
+            <button class="btn btn-success" (click)="setLocal()">Set Local</button>
+        </div>
+
+        <div class="col-3 m-1">
+            <button class="btn btn-success" (click)="getLocal()">Get Local</button>
+        </div>
+
+        <div class="col-3 m-1">
+            <button class="btn btn-success" (click)="removeLocal()">Remove Local</button>
+        </div>
+
+        <div class="col-3 m-1">
+            <button class="btn btn-success" (click)="clearLocal()">Clear</button>
+        </div>
+
+        @if(localValue) {
+        <h6>Local value : {{ localValue }}</h6>
+        }
+    </div>
+
+    <hr>
+
+    <h4 class="text-warning">Cookie</h4>
+    <div class="row m-4">
+
+
+        <div class="col-3 m-1">
+            <button class="btn btn-warning" (click)="setCookie()">Set Cookie</button>
+        </div>
+
+        <div class="col-3 m-1">
+            <button class="btn btn-warning" (click)="getCookie()">Get Cookie</button>
+        </div>
+
+        <div class="col-3 m-1">
+            <button class="btn btn-warning" (click)="deleteCookie()">Remove Cookie</button>
+        </div>
+
+        <div class="col-3 m-1">
+            <button class="btn btn-warning" (click)="deleteAllCookies()">Clear Cookies</button>
+        </div>
+        @if(cookieValue) {
+        <h6>Cookie value : {{ cookieValue }}</h6>
+        }
+    </div>
+</div>
