@@ -1,0 +1,55 @@
+<div class="container text-center">
+
+    <!-- 1, 2 -->
+    <div class="row m-2">
+        <div class="col-12">
+            <div class="text-warning">
+                <h2>Example of 1 & 2 (Parent -> Child & Child -> Parent)</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="text-info">
+                <h2>Parent Component</h2>
+            </div>
+            <div class="text-warning m-3">
+                <h4>{{ receiveGreetMsg }}</h4>
+            </div>
+        </div>
+        <div class="vr p-0"></div>
+        <div class="col-5">
+            <app-child [childInputProperty]="parentProperty" (childOutputProperty)="receiveGreet($event)"></app-child>
+        </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="row m-2">
+        <div class="col-12">
+            <div class="text-warning">
+                <h2>Example of 3(Sibling Components)</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <app-sibling1 [sibling1Input]="sbl2Data" (sibling1Event)="receiveFromSBL1($event)"></app-sibling1>
+        </div>
+        <div class="vr p-0"></div>
+        <div class="col-5">
+            <app-sibling2 [sibling2Input]="sbl1Data" (sibling2Event)="receiveFromSBL2($event)"></app-sibling2>
+        </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="row m-2">
+        <div class="col-12">
+            <div class="text-warning">
+                <h2>Example of 4 (parent -> child using ViewChild decorator)</h2>
+            </div>
+        </div>
+        <div class="row m-2">
+            <app-reusable #reusable></app-reusable>
+        </div>
+    </div>
+</div>

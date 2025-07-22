@@ -1,0 +1,18 @@
+<div class="container text-center">
+
+    <div class="text-info">
+        <h2>Sibling 1 Component</h2>
+    </div>
+    
+    <div class="m-3">
+        <input type="text" #sibling1>
+        <button class="btn btn-3 btn-success" (click)="sendDataToSibling2(sibling1.value)">
+            Say Hi to Sibling 2
+        </button>
+    </div>
+
+    <div class="text-warning m-3">
+        <p class="text-primary">recived from sbling 2 : </p>
+        <h4> {{ sibling1Input }}</h4>
+    </div>
+</div>
