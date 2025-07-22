@@ -1,5 +1,35 @@
 # Angular Cheat Sheet
 
+
+## 📚 Table of Contents
+
+- [🚀 Getting Started](#-getting-started)
+- [🧩 Components](#-components)
+- [🔄 Data Binding](#-data-binding)
+- [📋 Directives](#-directives)
+- [📡 Signals](#-signals)
+- [🔄 Effects](#-effects)
+- [🔗 Linked Signals](#-linked-signals)
+- [🛣️ Routing](#-routing)
+- [🧭 Navigation](#-navigation)
+- [🔄 Lifecycle Hooks](#-lifecycle-hooks)
+- [🔧 Pipes](#-pipes)
+- [📝 Angular Forms](#-angular-forms)
+- [🔧 Services and Dependency Injection](#-services-and-dependency-injection)
+- [📝 CRUD Operations](#-crud-operations)
+- [📡 resource() and rxResource()](#-resource-and-rxresource)
+- [🔄 Reusable Components](#-reusable-components)
+- [🎯 Decorators](#-decorators)
+- [🔄 Component Communication](#-component-communication)
+- [📋 Angular Component Data Sharing](#-angular-component-data-sharing)
+- [💾 Session Storage](#-session-storage)
+- [💾 Local Storage](#-local-storage)
+- [💾 Cookies](#-cookies)
+- [⚖️ Storage Summary](#️-storage-summary)
+- [💡 Quick Reference](#-quick-reference)
+
+---
+
 ## 🚀 Getting Started
 
 ### Installation & Setup
@@ -425,7 +455,7 @@ const routes: Routes = [
 
 ---
 
-## Navigation 🧭
+## 🧭 Navigation 
 
 ### Programmatic Navigation
 
@@ -776,7 +806,7 @@ reactiveForm = new FormGroup({
 })
 ```
 
-#### FormBuiulder Approacch
+#### FormBuilder Approacch
 form builder is service that makes it easier to create instances of form group, form control and form array.
 
 - inject the form builder service in to the component constructor
@@ -1455,17 +1485,20 @@ import { CommonModule } from '@angular/common';
  - rxResource() → works with observables
 
 ---
+
 ## 🔄 Reusable Components
 
 A reusable component is a self-contained piece of code that represents a UI element or a group of UI elements. Its purpose is to be used multiple times throughout an application, making it reusable.
 
-`<app-reusable [childProperty]="parentProperty"></app-reusable>` - partent.html
+`<app-reusable [childProperty]="parentProperty"></app-reusable>` - parent.html
 
-`parentProperty : string = "CRUD Operations : Angular 20"` - partent.ts
+`parentProperty : string = "CRUD Operations : Angular 20"` - parent.ts
 
 `<p>{{ childProperty }}</p>` - reusable.html
 
-`@Input() childProperty : string = "Welocme to Angular 20"` - reusable.ts
+`@Input() childProperty : string = "Welcome to Angular 20"` - reusable.ts
+
+---
 
 ## 🎯 Decorators
 
@@ -1489,11 +1522,367 @@ e.g.: @Inject().
 
 ---
 
+## 🔄 Component Communication
+
+Isolated Components
+  - Components have their own scope, no direct acccess to others.
+
+Data Sharing
+  - Components need to share data to achieve specifc functionalities.
+
+Complex Applications
+  - Components must commiunicate to coordinate actions in  complex apps
+
+Reusability 
+  - Component Communication enables reuse in different contexts
+
+Decoupling
+  - Components are independent, easy to modify, or replace without affecting the app.
+
+---
+
+## 📋 Angular Component Data Sharing
+
+### 1. Parent-to-Child Communication (@Input)
+
+**When to use:** Pass data from parent component to child component.
+
+#### Steps:
+1. **In Child Component:** Declare a property with `@Input()` decorator
+2. **In Parent Template:** Bind parent property to child input using square brackets
+3. **Data Flow:** Parent → Child (One-way binding)
+
+#### Syntax:
+```typescript
+// Child Component
+@Input() childInputProperty: string = "";
+```
+
+```html
+<!-- Parent Template -->
+<app-child [childInputProperty]="parentProperty"></app-child>
+```
+
+```typescript
+// Parent Component
+parentProperty: string = 'Hello child - from parent';
+```
+
+---
+
+### 2. Child-to-Parent Communication (@Output)
+
+**When to use:** Send data or events from child component to parent component.
+
+#### Steps:
+1. **In Child Component:** Create an EventEmitter with `@Output()` decorator
+2. **In Child Component:** Emit data using `emit()` method
+3. **In Parent Template:** Listen to the event using parentheses
+4. **In Parent Component:** Handle the event with a method
+
+#### Syntax:
+```typescript
+// Child Component
+@Output() childOutputProperty = new EventEmitter<any>();
+
+sayHiToParent() {
+  this.childOutputProperty.emit("'Hi' - from child");
+}
+```
+
+```html
+<!-- Parent Template -->
+<app-child (childOutputProperty)="receiveGreet($event)"></app-child>
+```
+
+```typescript
+// Parent Component
+receiveGreet(data: any) {
+  this.receiveGreetMsg = data;
+}
+```
+
+---
+
+### 3. Sibling Components Communication
+
+**When to use:** Share data between components at the same level (siblings).
+
+#### Steps:
+1. **Both Siblings:** Use `@Input()` to receive data and `@Output()` to send data
+2. **Parent Component:** Act as mediator between siblings
+3. **Data Flow:** Sibling1 → Parent → Sibling2 (and vice versa)
+
+#### Syntax:
+```typescript
+// Sibling Component
+@Output() sibling1Event = new EventEmitter<any>();
+@Input() sibling1Input: string = "";
+
+sendDataToSibling2(data: any) {
+  this.sibling1Event.emit(data);
+}
+```
+
+```html
+<!-- Parent Template -->
+<app-sibling1 [sibling1Input]="sbl2Data" (sibling1Event)="receiveFromSBL1($event)"></app-sibling1>
+<app-sibling2 [sibling2Input]="sbl1Data" (sibling2Event)="receiveFromSBL2($event)"></app-sibling2>
+```
+
+```typescript
+// Parent Component
+receiveFromSBL1(data: any) {
+  this.sbl1Data = data; // This will be passed to sibling2
+}
+```
+
+---
+
+### 4. Parent-to-Child Direct Access (@ViewChild)
+
+**When to use:** 
+- Access child component data directly from parent
+- Access template elements in the same class file
+- Manipulate child component properties/methods directly
+
+#### Steps:
+1. **In Parent Component:** Import `ViewChild` and `AfterViewInit`
+2. **In Parent Template:** Add template reference variable to child component
+3. **In Parent Component:** Use `@ViewChild()` to get reference
+4. **In Parent Component:** Access child in `ngAfterViewInit()` lifecycle hook
+
+#### Syntax:
+```typescript
+// Parent Component
+import { AfterViewInit, ViewChild } from '@angular/core';
+
+@ViewChild('reusable') reusableComponent!: Reusable;
+
+ngAfterViewInit(): void {
+  setTimeout(() => {
+    this.reusableComponent.childProperty = 'Greeting from parent component';
+  });
+}
+```
+
+```html
+<!-- Parent Template -->
+<app-reusable #reusable></app-reusable>
+```
+
+```typescript
+// Child Component
+@Input() childProperty: string = "Welcome to Angular 20";
+```
+
+---
+
+### 5. Unrelated Components Communication (Service)
+
+**When to use:** Share data between components that are not directly related (no parent-child relationship).
+
+#### Key Points:
+- Use Angular Services with BehaviorSubject or Subject
+- Inject the service in both components
+- Subscribe to data changes
+- Best for complex applications with multiple unrelated components
+
+---
+
+### Summary Table
+
+| Method | Use Case | Data Flow | Complexity |
+|--------|----------|-----------|------------|
+| `@Input()` | Parent → Child | One-way | Simple |
+| `@Output()` | Child → Parent | Event-based | Simple |
+| `@Input()` + `@Output()` | Sibling Communication | Via Parent | Medium |
+| `@ViewChild()` | Direct Child Access | Parent controls child | Medium |
+| **Service** | Unrelated Components | Multi-directional | Complex |
+
+### Best Practices
+- Use `@Input()/@Output()` for simple parent-child communication
+- Use `@ViewChild()` sparingly, only when direct access is necessary
+- Use Services for complex, unrelated component communication
+- Always implement `AfterViewInit` when using `@ViewChild()`
+
+
+---
+
+
+## 💾 Session Storage
+Session storage in Angular is a way to store data temporarily for the duration of a browser session. It allows you to store key-value pairs that can be accessed and manipulated throughout the application. Data persists until the browser tab/window is closed.
+
+### When to Use:
+- **Temporary data storage** during user sessions
+- **Form data** that needs to persist across page refreshes
+- **Navigation history** and user journey tracking
+- Shopping cart data for current session
+
+### Core Methods:
+
+**setItem()** - Store data in session storage
+```typescript
+sessionStorage.setItem('key', 'value');
+sessionStorage.setItem('userRole', 'admin');
+```
+
+**getItem()** - Retrieve data from session storage
+```typescript
+const value = sessionStorage.getItem('key');
+const userRole = sessionStorage.getItem('userRole');
+```
+
+**removeItem()** - Remove specific item from session storage
+```typescript
+sessionStorage.removeItem('key');
+sessionStorage.removeItem('userRole');
+```
+
+**clear()** - Clear all session storage data
+```typescript
+sessionStorage.clear();
+```
+
+### Key Characteristics:
+- ⏰ **Lifetime:** Until browser tab/window closes
+- 📏 **Storage Limit:** ~5-10MB per origin
+- 🔒 **Scope:** Tab-specific
+
+---
+
+## 💾 Local Storage
+Local storage in Angular is a way to store data locally on the client-side, even after the browser is closed or the user navigates away from the application. It allows you to store key-value pairs that persist across browser sessions.
+
+### When to Use:
+- **Persistent data storage** that survives browser restarts
+- **User preferences** (theme, language, settings)
+- **Caching** frequently used data
+- Remember user login status
+
+### Core Methods:
+
+**setItem()** - Store data in local storage
+```typescript
+localStorage.setItem('key', 'value');
+localStorage.setItem('theme', 'dark-mode');
+```
+
+**getItem()** - Retrieve data from local storage
+```typescript
+const value = localStorage.getItem('key');
+const theme = localStorage.getItem('theme');
+```
+
+**removeItem()** - Remove specific item from local storage
+```typescript
+localStorage.removeItem('key');
+localStorage.removeItem('theme');
+```
+
+**clear()** - Clear all local storage data
+```typescript
+localStorage.clear();
+```
+
+### Key Characteristics:
+- ♾️ **Lifetime:** Permanent (until manually cleared)
+- 📏 **Storage Limit:** ~5-10MB per origin
+- 🌐 **Scope:** Domain-wide across all tabs
+
+---
+
+## 💾 Cookies
+Cookies are small pieces of data that are stored on the client-side (in the user's browser) and sent to the server with every HTTP request. They are domain-specific and can be configured with various security and expiration settings.
+
+### When to Use:
+- **Authentication** (storing JWT tokens, session IDs)
+- **User preferences** (language, currency, region settings)
+- **Tracking** user behavior and analytics
+- Cross-domain data sharing
+
+### Installation:
+```bash
+npm install ngx-cookie-service
+```
+
+### Core Methods:
+
+**set()** - Create/update a cookie
+```typescript
+import { CookieService } from 'ngx-cookie-service';
+
+constructor(private cookieService: CookieService) {}
+
+// Basic usage
+this.cookieService.set('key', 'value');
+// With expiration
+this.cookieService.set('authToken', 'xyz123', 7); // expires in 7 days
+```
+
+**get()** - Retrieve cookie value
+```typescript
+const value = this.cookieService.get('key');
+const authToken = this.cookieService.get('authToken');
+```
+
+**delete()** - Remove specific cookie
+```typescript
+this.cookieService.delete('key');
+this.cookieService.delete('authToken');
+```
+
+**deleteAll()** - Remove all cookies
+```typescript
+this.cookieService.deleteAll();
+```
+
+### Key Characteristics:
+- 📤 **Server Communication:** Sent with every HTTP request
+- 🔒 **Security:** Can be HttpOnly, Secure, SameSite
+- 📏 **Storage Limit:** ~4KB per cookie
+- ⏰ **Expiration:** Configurable (session or specific date)
+
+### Best Practices
+
+#### Session Storage
+- Use for temporary, session-specific data
+- Perfect for form wizards and multi-step processes
+- Clear data when no longer needed
+
+#### Local Storage
+- Use for persistent user preferences
+- Store non-sensitive data only
+- Implement data expiration logic when needed
+
+#### Cookies
+- Use for authentication and server communication
+- Always set security flags (HttpOnly, Secure) for sensitive data
+- Be mindful of size limitations
+- Consider GDPR compliance for tracking cookies
+---
+
+## ⚖️ Storage Summary
+
+| Parameter | Session Storage | Local Storage | Cookies |
+|-----------|-------------|---------------|---------|
+| **Duration** | Temporary (until tab/window closes) | Persistent (until manually cleared) | Configurable (session or expiration date) |
+| **Security** | Client-side only | Client-side only | Configurable (HttpOnly, Secure, SameSite) |
+| **Storage Limit** | ~5-10MB | ~5-10MB | ~4KB per cookie |
+| **Accessibility** | Client-side only | Client-side only | Client-side & Server-side |
+| **Scope** | Single tab | All tabs (domain-wide) | Domain-wide |
+| **Server Communication** | No | No | Yes (sent with every HTTP request) |
+| **Lifetime** | Tab session | Permanent | Session or persistent |
+| **Use Cases** | Form data, navigation history | User preferences, caching | Authentication, tracking, preferences |
+| **Installation** | Built-in | Built-in | npm install ngx-cookie-service |
+
+---
+
 ## 💡 Quick Reference
 
 ### Common CLI Commands
 
-```bash
+````bash
 ng new <project-name>          # Create new project
 ng serve                       # Start dev server
 ng build                       # Build project
@@ -1501,7 +1890,25 @@ ng test                        # Run tests
 ng generate component <name>   # Generate component
 ng generate service <name>     # Generate service
 ng generate module <name>      # Generate module
-```
+ng generate directive <name>   # Generate directive
+ng generate pipe <name>        # Generate pipe
+ng generate guard <name>       # Generate guard
+ng generate interface <name>   # Generate interface
+ng generate enum <name>        # Generate enum
+ng generate class <name>       # Generate class
+ng generate interceptor <name> # Generate HTTP interceptor
+ng generate resolver <name>    # Generate resolver
+ng generate library <name>     # Generate library
+ng add <package>               # Add package to project
+ng update                      # Update dependencies
+ng lint                        # Run linting
+ng e2e                         # Run end-to-end tests
+ng extract-i18n               # Extract i18n messages
+ng deploy                      # Deploy project
+ng doc <keyword>               # Open documentation
+ng version                     # Show Angular version
+ng help                        # Show help
+````
 
 ### Component Syntax Examples
 
